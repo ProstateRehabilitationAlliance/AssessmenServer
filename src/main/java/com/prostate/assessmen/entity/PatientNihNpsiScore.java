@@ -16,6 +16,8 @@ public class PatientNihNpsiScore {
 
     private String lifeScore;
 
+    private String nihNpsiScore;
+
     private String answer;
 
     private String caution;
@@ -72,6 +74,14 @@ public class PatientNihNpsiScore {
 
     public void setLifeScore(String lifeScore) {
         this.lifeScore = lifeScore == null ? null : lifeScore.trim();
+    }
+
+    public String getNihNpsiScore() {
+        return nihNpsiScore;
+    }
+
+    public void setNihNpsiScore(String nihNpsiScore) {
+        this.nihNpsiScore = nihNpsiScore;
     }
 
     public String getAnswer() {

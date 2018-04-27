@@ -14,6 +14,8 @@ public class PatientIpssScore {
 
     private String lifeScore;
 
+    private String ipssScore;
+
     private String answer;
 
     private String caution;
@@ -62,6 +64,14 @@ public class PatientIpssScore {
 
     public void setLifeScore(String lifeScore) {
         this.lifeScore = lifeScore == null ? null : lifeScore.trim();
+    }
+
+    public String getIpssScore() {
+        return ipssScore;
+    }
+
+    public void setIpssScore(String ipssScore) {
+        this.ipssScore = ipssScore;
     }
 
     public String getAnswer() {

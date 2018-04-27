@@ -39,28 +39,50 @@
 
 
 
+    <!--<resultMap id="PatientAssessmentListResultMap" type="com.prostate.assessmen.entity.PatientAssessment">-->
+        <!--<id column="ppncsId" jdbcType="VARCHAR" property="id"/>-->
+        <!--<result column="ipssScore" jdbcType="VARCHAR" property="ipssScore"/>-->
+        <!--<result column="nihNpsiScore" jdbcType="VARCHAR" property="nihNpsiScore"/>-->
+    <!--</resultMap>-->
+    <!--<sql id="PatientAssessmentList_Column_List">-->
+        <!--SUM(ppncs.inflammation_score+ ppncs.symptom_score+ ppncs.life_score) AS nihNpsiScore,-->
+        <!--SUM(ppis.symptom_score+ppis.life_score) AS ipssScore,-->
+        <!--ppncs.id ppncsId,-->
+        <!--ppis.id ppisId-->
+    <!--</sql>-->
+    <!--<sql id="PatientAssessmentList_Left_Join">-->
+        <!--LEFT JOIN pra_patient_ipss_score ppis ON ppis.id = ppncs.id-->
+    <!--</sql>-->
+    <!--<select id="selectByPatientId" parameterType="com.prostate.assessmen.entity.PatientAssessment" resultMap="PatientAssessmentListResultMap">-->
+        <!--select-->
+        <!--<include refid="PatientAssessmentList_Column_List"/>-->
+        <!--from pra_patient_nih_cpsi_score ppncs-->
+        <!--<include refid="PatientAssessmentList_Left_Join"/>-->
+        <!--where ppncs.patient_id = #{id,jdbcType=VARCHAR}-->
+        <!--AND ppis.patient_id = #{id,jdbcType=VARCHAR}-->
+    <!--</select>-->
+
     <resultMap id="PatientAssessmentListResultMap" type="com.prostate.assessmen.entity.PatientAssessment">
         <id column="ppncsId" jdbcType="VARCHAR" property="id"/>
         <result column="ipssScore" jdbcType="VARCHAR" property="ipssScore"/>
         <result column="nihNpsiScore" jdbcType="VARCHAR" property="nihNpsiScore"/>
     </resultMap>
     <sql id="PatientAssessmentList_Column_List">
-        SUM(ppncs.inflammation_score+ ppncs.symptom_score+ ppncs.life_score) AS nihNpsiScore,
-        SUM(ppis.symptom_score+ppis.life_score) AS ipssScore,
         ppncs.id ppncsId,
         ppis.id ppisId
     </sql>
     <sql id="PatientAssessmentList_Left_Join">
-        LEFT JOIN pra_patient_ipss_score ppis ON ppis.id = ppncs.id
+        LEFT JOIN pra_patient_ipss_score ppis ON ppis.patient_id = p.id
+        LEFT JOIN pra_patient_nih_cpsi_score ppncs ON ppncs.patient_id = p.id
+
     </sql>
     <select id="selectByPatientId" parameterType="com.prostate.assessmen.entity.PatientAssessment" resultMap="PatientAssessmentListResultMap">
-        select
+        select distinct
         <include refid="PatientAssessmentList_Column_List"/>
-        from pra_patient_nih_cpsi_score ppncs
+        from  pomr_patient p
         <include refid="PatientAssessmentList_Left_Join"/>
         where ppncs.patient_id = #{id,jdbcType=VARCHAR}
         AND ppis.patient_id = #{id,jdbcType=VARCHAR}
     </select>
-
 
 </mapper>

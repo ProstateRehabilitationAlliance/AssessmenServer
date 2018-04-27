@@ -6,6 +6,7 @@
     <result column="patient_id" jdbcType="VARCHAR" property="patientId" />
     <result column="symptom_score" jdbcType="VARCHAR" property="symptomScore" />
     <result column="life_score" jdbcType="VARCHAR" property="lifeScore" />
+    <result column="ipss_score" jdbcType="VARCHAR" property="ipssScore" />
     <result column="answer" jdbcType="VARCHAR" property="answer" />
     <result column="caution" jdbcType="VARCHAR" property="caution" />
     <result column="create_doctor" jdbcType="VARCHAR" property="createDoctor" />
@@ -17,7 +18,7 @@
     <result column="del_flag" jdbcType="VARCHAR" property="delFlag" />
   </resultMap>
   <sql id="Base_Column_List">
-    id, patient_id, symptom_score, life_score, answer, caution, create_doctor, create_time, 
+    id, patient_id, symptom_score, life_score,ipss_score, answer, caution, create_doctor, create_time,
     update_doctor, update_time, delete_doctor, delete_time, del_flag
   </sql>
   <select id="selectById" parameterType="java.lang.String" resultMap="BaseResultMap">
@@ -44,6 +45,9 @@
       </if>
       <if test="lifeScore != null">
         life_score,
+      </if>
+      <if test="ipssScore != null">
+        ipss_score,
       </if>
       <if test="answer != null">
         answer,
@@ -85,6 +89,9 @@
       </if>
       <if test="lifeScore != null">
         #{lifeScore,jdbcType=VARCHAR},
+      </if>
+      <if test="ipssScore != null">
+        #{ipssScore,jdbcType=VARCHAR},
       </if>
       <if test="answer != null">
         #{answer,jdbcType=VARCHAR},
@@ -130,6 +137,9 @@
       <if test="lifeScore != null">
         life_score,
       </if>
+      <if test="ipssScore != null">
+        ipss_score,
+      </if>
       <if test="answer != null">
         answer,
       </if>
@@ -171,6 +181,9 @@
       <if test="lifeScore != null">
         #{lifeScore,jdbcType=VARCHAR},
       </if>
+      <if test="ipssScore != null">
+        #{ipssScore,jdbcType=VARCHAR},
+      </if>
       <if test="answer != null">
         #{answer,jdbcType=VARCHAR},
       </if>
@@ -211,6 +224,9 @@
       </if>
       <if test="lifeScore != null">
         life_score = #{lifeScore,jdbcType=VARCHAR},
+      </if>
+      <if test="ipssScore != null">
+        ipss_score = #{ipssScore,jdbcType=VARCHAR},
       </if>
       <if test="answer != null">
         answer = #{answer,jdbcType=VARCHAR},
