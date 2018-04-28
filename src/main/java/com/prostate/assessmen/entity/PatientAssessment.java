@@ -1,6 +1,7 @@
 package com.prostate.assessmen.entity;
 
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonInclude;
 
 import java.util.Date;
@@ -10,14 +11,19 @@ public class PatientAssessment {
 
     private String id;
 
-    private String ipssScore;
+    private int nihCpsiScore;
 
-    private String nihNpsiScore;
+    private int ipssScore;
+
+    private int scaleScore;
 
     private PatientIpssScore patientIpssScore;
 
-    private PatientNihNpsiScore patientNihNpsiScore;
+    private PatientNihCpsiScore patientNihNpsiScore;
 
+    private PatientScaleScore patientScaleScore;
+
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss",timezone = "GMT+8")
     private Date createTime;
 
 
@@ -29,20 +35,28 @@ public class PatientAssessment {
         this.id = id;
     }
 
-    public String getIpssScore() {
+    public int getIpssScore() {
         return ipssScore;
     }
 
-    public void setIpssScore(String ipssScore) {
+    public void setIpssScore(int ipssScore) {
         this.ipssScore = ipssScore;
     }
 
-    public String getNihNpsiScore() {
-        return nihNpsiScore;
+    public int getNihCpsiScore() {
+        return nihCpsiScore;
     }
 
-    public void setNihNpsiScore(String nihNpsiScore) {
-        this.nihNpsiScore = nihNpsiScore;
+    public void setNihCpsiScore(int nihCpsiScore) {
+        this.nihCpsiScore = nihCpsiScore;
+    }
+
+    public int getScaleScore() {
+        return scaleScore;
+    }
+
+    public void setScaleScore(int scaleScore) {
+        this.scaleScore = scaleScore;
     }
 
     public PatientIpssScore getPatientIpssScore() {
@@ -53,12 +67,20 @@ public class PatientAssessment {
         this.patientIpssScore = patientIpssScore;
     }
 
-    public PatientNihNpsiScore getPatientNihNpsiScore() {
+    public PatientNihCpsiScore getPatientNihNpsiScore() {
         return patientNihNpsiScore;
     }
 
-    public void setPatientNihNpsiScore(PatientNihNpsiScore patientNihNpsiScore) {
+    public void setPatientNihNpsiScore(PatientNihCpsiScore patientNihNpsiScore) {
         this.patientNihNpsiScore = patientNihNpsiScore;
+    }
+
+    public PatientScaleScore getPatientScaleScore() {
+        return patientScaleScore;
+    }
+
+    public void setPatientScaleScore(PatientScaleScore patientScaleScore) {
+        this.patientScaleScore = patientScaleScore;
     }
 
     public Date getCreateTime() {

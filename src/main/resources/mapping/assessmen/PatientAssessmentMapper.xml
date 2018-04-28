@@ -1,11 +1,40 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.prostate.assessmen.mapper.PatientAssessmentMapper">
+
+    <!--根据患者查询 所有评估结果列表-->
+    <resultMap id="PatientAssessmentListResultMap" type="com.prostate.assessmen.entity.PatientAssessment">
+        <id column="ppncsId" jdbcType="VARCHAR" property="id"/>
+        <result column="nihCpsiScore" jdbcType="VARCHAR" property="nihCpsiScore"/>
+        <result column="ipssScore" jdbcType="VARCHAR" property="ipssScore"/>
+        <result column="pssScaleScore" jdbcType="VARCHAR" property="scaleScore"/>
+        <result column="createTime" jdbcType="TIMESTAMP" property="createTime"/>
+    </resultMap>
+    <sql id="PatientAssessmentList_Column_List">
+        ppncs.id ppncsId, ppncs.nih_cpsi_score nihCpsiScore,ppncs.create_time createTime,
+        ppis.id ppisId,ppis.ipss_score ipssScore,
+        pss.id pssId,pss.scale_score pssScaleScore
+
+    </sql>
+    <sql id="PatientAssessmentList_Left_Join">
+        LEFT JOIN pra_patient_ipss_score ppis ON ppis.id = ppncs.id
+        LEFT JOIN pra_scale_score pss ON pss.id = ppncs.id
+    </sql>
+    <select id="selectByPatientId" parameterType="com.prostate.assessmen.entity.PatientAssessment" resultMap="PatientAssessmentListResultMap">
+        select
+        <include refid="PatientAssessment_Column_List"/>
+        from pra_patient_nih_cpsi_score ppncs
+        <include refid="PatientAssessment_Left_Join"/>
+        where ppncs.patient_id = #{id,jdbcType=VARCHAR}
+    </select>
+<!-- 根据ID查询一条记录中的 所有评估结果 -->
     <resultMap id="PatientAssessmentResultMap" type="com.prostate.assessmen.entity.PatientAssessment">
         <id column="ppncsId" jdbcType="VARCHAR" property="id"/>
+        <result column="nihCpsiScore" jdbcType="VARCHAR" property="nihCpsiScore"/>
         <result column="ipssScore" jdbcType="VARCHAR" property="ipssScore"/>
-        <result column="nihNpsiScore" jdbcType="VARCHAR" property="nihNpsiScore"/>
-        <association property="patientNihNpsiScore" javaType="com.prostate.assessmen.entity.PatientNihNpsiScore">
+        <result column="pssScaleScore" jdbcType="VARCHAR" property="scaleScore"/>
+        <result column="createTime" jdbcType="TIMESTAMP" property="createTime"/>
+        <association property="patientNihNpsiScore" javaType="com.prostate.assessmen.entity.PatientNihCpsiScore">
             <id column="ppncsId" jdbcType="VARCHAR" property="id"/>
             <result column="ppncsInflammationScore" jdbcType="VARCHAR" property="inflammationScore"/>
             <result column="ppncsSymptomScore" jdbcType="VARCHAR" property="symptomScore"/>
@@ -18,16 +47,40 @@
             <result column="ppisLifeScore" jdbcType="VARCHAR" property="lifeScore"/>
             <result column="ppisAnswer" jdbcType="VARCHAR" property="answer"/>
         </association>
+        <association property="patientScaleScore" javaType="com.prostate.assessmen.entity.PatientScaleScore">
+            <id column="pssId" jdbcType="VARCHAR" property="id"/>
+            <result column="pssInflammationScore" jdbcType="VARCHAR" property="inflammationScore"/>
+            <result column="pssSymptomScore" jdbcType="VARCHAR" property="symptomScore"/>
+            <result column="pssLifeScore" jdbcType="VARCHAR" property="lifeScore"/>
+            <result column="pssAnswer" jdbcType="VARCHAR" property="answer"/>
+        </association>
     </resultMap>
     <sql id="PatientAssessment_Column_List">
-        SUM(ppncs.inflammation_score+ ppncs.symptom_score+ ppncs.life_score) AS nihNpsiScore,
-        SUM(ppis.symptom_score+ppis.life_score) AS ipssScore,
-        ppncs.id ppncsId, ppncs.inflammation_score ppncsInflammationScore, ppncs.symptom_score ppncsSymptomScore,
-        ppncs.life_score ppncsLifeScore, ppncs.answer ppncsAnswer,
-        ppis.id ppisId, ppis.symptom_score ppisSymptomScore, ppis.life_score ppisLifeScore, ppis.answer ppisAnswer
+        ppncs.id ppncsId,
+        ppncs.inflammation_score ppncsInflammationScore,
+        ppncs.symptom_score ppncsSymptomScore,
+        ppncs.life_score ppncsLifeScore,
+        ppncs.nih_cpsi_score nihCpsiScore,
+        ppncs.answer ppncsAnswer,
+        ppncs.create_time createTime,
+
+        ppis.id ppisId,
+        ppis.symptom_score ppisSymptomScore,
+        ppis.life_score ppisLifeScore,
+        ppis.ipss_score ipssScore,
+        ppis.answer ppisAnswer,
+
+        pss.id pssId,
+        pss.inflammation_score pssInflammationScore,
+        pss.symptom_score pssSymptomScore,
+        pss.life_score pssLifeScore,
+        pss.scale_score pssScaleScore,
+        pss.answer pssAnswer
+
     </sql>
     <sql id="PatientAssessment_Left_Join">
         LEFT JOIN pra_patient_ipss_score ppis ON ppis.id = ppncs.id
+        LEFT JOIN pra_scale_score pss ON pss.id = ppncs.id
     </sql>
     <select id="selectById" parameterType="com.prostate.assessmen.entity.PatientAssessment" resultMap="PatientAssessmentResultMap">
         select
@@ -36,53 +89,4 @@
         <include refid="PatientAssessment_Left_Join"/>
         where ppncs.id = #{id,jdbcType=VARCHAR}
     </select>
-
-
-
-    <!--<resultMap id="PatientAssessmentListResultMap" type="com.prostate.assessmen.entity.PatientAssessment">-->
-        <!--<id column="ppncsId" jdbcType="VARCHAR" property="id"/>-->
-        <!--<result column="ipssScore" jdbcType="VARCHAR" property="ipssScore"/>-->
-        <!--<result column="nihNpsiScore" jdbcType="VARCHAR" property="nihNpsiScore"/>-->
-    <!--</resultMap>-->
-    <!--<sql id="PatientAssessmentList_Column_List">-->
-        <!--SUM(ppncs.inflammation_score+ ppncs.symptom_score+ ppncs.life_score) AS nihNpsiScore,-->
-        <!--SUM(ppis.symptom_score+ppis.life_score) AS ipssScore,-->
-        <!--ppncs.id ppncsId,-->
-        <!--ppis.id ppisId-->
-    <!--</sql>-->
-    <!--<sql id="PatientAssessmentList_Left_Join">-->
-        <!--LEFT JOIN pra_patient_ipss_score ppis ON ppis.id = ppncs.id-->
-    <!--</sql>-->
-    <!--<select id="selectByPatientId" parameterType="com.prostate.assessmen.entity.PatientAssessment" resultMap="PatientAssessmentListResultMap">-->
-        <!--select-->
-        <!--<include refid="PatientAssessmentList_Column_List"/>-->
-        <!--from pra_patient_nih_cpsi_score ppncs-->
-        <!--<include refid="PatientAssessmentList_Left_Join"/>-->
-        <!--where ppncs.patient_id = #{id,jdbcType=VARCHAR}-->
-        <!--AND ppis.patient_id = #{id,jdbcType=VARCHAR}-->
-    <!--</select>-->
-
-    <resultMap id="PatientAssessmentListResultMap" type="com.prostate.assessmen.entity.PatientAssessment">
-        <id column="ppncsId" jdbcType="VARCHAR" property="id"/>
-        <result column="ipssScore" jdbcType="VARCHAR" property="ipssScore"/>
-        <result column="nihNpsiScore" jdbcType="VARCHAR" property="nihNpsiScore"/>
-    </resultMap>
-    <sql id="PatientAssessmentList_Column_List">
-        ppncs.id ppncsId,
-        ppis.id ppisId
-    </sql>
-    <sql id="PatientAssessmentList_Left_Join">
-        LEFT JOIN pra_patient_ipss_score ppis ON ppis.patient_id = p.id
-        LEFT JOIN pra_patient_nih_cpsi_score ppncs ON ppncs.patient_id = p.id
-
-    </sql>
-    <select id="selectByPatientId" parameterType="com.prostate.assessmen.entity.PatientAssessment" resultMap="PatientAssessmentListResultMap">
-        select distinct
-        <include refid="PatientAssessmentList_Column_List"/>
-        from  pomr_patient p
-        <include refid="PatientAssessmentList_Left_Join"/>
-        where ppncs.patient_id = #{id,jdbcType=VARCHAR}
-        AND ppis.patient_id = #{id,jdbcType=VARCHAR}
-    </select>
-
 </mapper>

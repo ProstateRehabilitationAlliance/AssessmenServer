@@ -56,7 +56,7 @@ public class PatientIpssScoreController extends BaseController {
         }
         resultMap.put("code","20000");
         resultMap.put("msg","SUCCESS");
-        resultMap.put("result",patientIpssScore.getId());
+        resultMap.put("result",patientIpssScore);
         return resultMap;
     }
 

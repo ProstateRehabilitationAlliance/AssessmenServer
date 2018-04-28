@@ -5,7 +5,7 @@ import com.fasterxml.jackson.annotation.JsonInclude;
 import java.util.Date;
 
 @JsonInclude(JsonInclude.Include.NON_NULL)
-public class PatientNihNpsiScore {
+public class PatientNihCpsiScore {
     private String id;
 
     private String patientId;
@@ -16,7 +16,7 @@ public class PatientNihNpsiScore {
 
     private String lifeScore;
 
-    private String nihNpsiScore;
+    private String nihCpsiScore;
 
     private String answer;
 
@@ -76,12 +76,12 @@ public class PatientNihNpsiScore {
         this.lifeScore = lifeScore == null ? null : lifeScore.trim();
     }
 
-    public String getNihNpsiScore() {
-        return nihNpsiScore;
+    public String getNihCpsiScore() {
+        return nihCpsiScore;
     }
 
-    public void setNihNpsiScore(String nihNpsiScore) {
-        this.nihNpsiScore = nihNpsiScore;
+    public void setNihCpsiScore(String nihCpsiScore) {
+        this.nihCpsiScore = nihCpsiScore;
     }
 
     public String getAnswer() {

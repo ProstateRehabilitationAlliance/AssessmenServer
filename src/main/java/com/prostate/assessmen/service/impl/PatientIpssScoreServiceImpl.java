@@ -2,7 +2,6 @@ package com.prostate.assessmen.service.impl;
 
 import com.prostate.assessmen.entity.PatientIpssScore;
 import com.prostate.assessmen.mapper.PatientIpssScoreMapper;
-import com.prostate.assessmen.mapper.PatientNihNpsiScoreMapper;
 import com.prostate.assessmen.service.PatientIpssScoreService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;

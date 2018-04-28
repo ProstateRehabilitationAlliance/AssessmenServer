@@ -23,6 +23,7 @@ public class PatientAssessmentController extends BaseController {
 
     @PostMapping(value = "findByPatientId")
     public Map getPatientAssessmentList(String patientId){
+        log.info("############根据患者查询 所有评估结果列表############");
         resultMap = new LinkedHashMap<>();
         //参数校验
         if(patientId==null||"".equals(patientId)){
@@ -49,7 +50,7 @@ public class PatientAssessmentController extends BaseController {
 
     @PostMapping(value = "getById")
     public Map getPatientAssessment(String id){
-         log.info("#########前列腺症状评分（IPSS）结果添加############生活质量指数评分（QOL)结果添加############");
+         log.info("#########前列腺症状评分（IPSS）结果添加############生活质量指数评分（QOL)结果############");
          resultMap = new LinkedHashMap<>();
          //参数校验
          if(id==null||"".equals(id)){
