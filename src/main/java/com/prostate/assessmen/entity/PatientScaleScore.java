@@ -18,6 +18,8 @@ public class PatientScaleScore {
 
     private String scaleScore;
 
+    private String optionScore;
+
     private String answer;
 
     private String caution;
@@ -58,6 +60,14 @@ public class PatientScaleScore {
 
     public void setInflammationScore(String inflammationScore) {
         this.inflammationScore = inflammationScore == null ? null : inflammationScore.trim();
+    }
+
+    public String getOptionScore() {
+        return optionScore;
+    }
+
+    public void setOptionScore(String optionScore) {
+        this.optionScore = optionScore;
     }
 
     public String getSymptomScore() {

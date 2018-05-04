@@ -8,6 +8,7 @@
     <result column="symptom_score" jdbcType="VARCHAR" property="symptomScore" />
     <result column="life_score" jdbcType="VARCHAR" property="lifeScore" />
     <result column="scale_score" jdbcType="VARCHAR" property="scaleScore" />
+    <result column="option_score" jdbcType="VARCHAR" property="optionScore" />
     <result column="answer" jdbcType="VARCHAR" property="answer" />
     <result column="caution" jdbcType="VARCHAR" property="caution" />
     <result column="create_doctor" jdbcType="VARCHAR" property="createDoctor" />
@@ -57,6 +58,9 @@
       <if test="answer != null">
         answer,
       </if>
+      <if test="optionScore != null">
+        option_score,
+      </if>
       <if test="caution != null">
         caution,
       </if>
@@ -103,6 +107,9 @@
       </if>
       <if test="answer != null">
         #{answer,jdbcType=VARCHAR},
+      </if>
+      <if test="optionScore != null">
+        #{optionScore,jdbcType=VARCHAR},
       </if>
       <if test="caution != null">
         #{caution,jdbcType=VARCHAR},
@@ -155,6 +162,9 @@
       <if test="answer != null">
         answer,
       </if>
+      <if test="optionScore != null">
+        option_score,
+      </if>
       <if test="caution != null">
         caution,
       </if>
@@ -201,6 +211,9 @@
       </if>
       <if test="answer != null">
         #{answer,jdbcType=VARCHAR},
+      </if>
+      <if test="optionScore != null">
+        #{optionScore,jdbcType=VARCHAR},
       </if>
       <if test="caution != null">
         #{caution,jdbcType=VARCHAR},
@@ -249,6 +262,9 @@
       <if test="answer != null">
         answer = #{answer,jdbcType=VARCHAR},
       </if>
+      <if test="optionScore != null">
+        option_score = #{optionScore,jdbcType=VARCHAR},
+      </if>
       <if test="caution != null">
         caution = #{caution,jdbcType=VARCHAR},
       </if>
@@ -274,24 +290,6 @@
         del_flag = #{delFlag,jdbcType=VARCHAR},
       </if>
     </set>
-    where id = #{id,jdbcType=VARCHAR}
-  </update>
-  <update id="updateByPrimaryKey" parameterType="com.prostate.assessmen.entity.PatientScaleScore">
-    update pra_scale_score
-    set patient_id = #{patientId,jdbcType=VARCHAR},
-      inflammation_score = #{inflammationScore,jdbcType=VARCHAR},
-      symptom_score = #{symptomScore,jdbcType=VARCHAR},
-      life_score = #{lifeScore,jdbcType=VARCHAR},
-      scale_score = #{scaleScore,jdbcType=VARCHAR},
-      answer = #{answer,jdbcType=VARCHAR},
-      caution = #{caution,jdbcType=VARCHAR},
-      create_doctor = #{createDoctor,jdbcType=VARCHAR},
-      create_time = #{createTime,jdbcType=TIMESTAMP},
-      update_doctor = #{updateDoctor,jdbcType=VARCHAR},
-      update_time = #{updateTime,jdbcType=TIMESTAMP},
-      delete_doctor = #{deleteDoctor,jdbcType=VARCHAR},
-      delete_time = #{deleteTime,jdbcType=TIMESTAMP},
-      del_flag = #{delFlag,jdbcType=VARCHAR}
     where id = #{id,jdbcType=VARCHAR}
   </update>
 </mapper>

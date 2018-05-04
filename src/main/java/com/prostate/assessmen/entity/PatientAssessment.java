@@ -17,6 +17,8 @@ public class PatientAssessment {
 
     private int scaleScore;
 
+    private String scaleCaution;
+
     private PatientIpssScore patientIpssScore;
 
     private PatientNihCpsiScore patientNihNpsiScore;
@@ -73,6 +75,14 @@ public class PatientAssessment {
 
     public void setPatientNihNpsiScore(PatientNihCpsiScore patientNihNpsiScore) {
         this.patientNihNpsiScore = patientNihNpsiScore;
+    }
+
+    public String getScaleCaution() {
+        return scaleCaution;
+    }
+
+    public void setScaleCaution(String scaleCaution) {
+        this.scaleCaution = scaleCaution;
     }
 
     public PatientScaleScore getPatientScaleScore() {

@@ -49,8 +49,9 @@ public class ScaleScoreController extends BaseController {
         scaleScore.setCreateDoctor(doctor.getId());
         List<Integer> scoreList = ScaleScoreUtil.getScores(scaleScore.getAnswer());
         String caution = ScaleScoreUtil.checkIllnessType(scoreList,'0',patientAge);
-//        scaleScore.setCaution(caution);
-        log.info("###########"+caution);
+        scaleScore.setCaution(caution);
+        String optionScore = ScaleScoreUtil.getOptionScore(scoreList);
+        scaleScore.setOptionScore(optionScore);
         if(scaleScore.getId()==null||"".equals(scaleScore.getId())){
             scaleScoreService.insertSelective(scaleScore);
         }else{
@@ -66,6 +67,7 @@ public class ScaleScoreController extends BaseController {
         resultMap.put("result",scaleScore);
         resultMap.put("scoreList",scoreList);
         resultMap.put("caution",caution);
+        resultMap.put("optionScore",optionScore);
         return resultMap;
     }
 
