@@ -1,11 +1,11 @@
-package com.prostate.assessmen.utlis;
+package com.prostate.assessmen.util;
 
 import java.util.Calendar;
 
 /**
  * Created by MaxCoder  on 2018/4/26
  */
-public class IdCardUtil {
+public class IdCardUtils {
     /**
      * 中国公民身份证号码最小长度。
      */

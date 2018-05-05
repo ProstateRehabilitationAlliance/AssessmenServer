@@ -1,7 +1,7 @@
 package com.prostate.assessmen.cache.redis;
 
 import com.prostate.assessmen.entity.Doctor;
-import com.prostate.assessmen.utlis.JsonUtil;
+import com.prostate.assessmen.util.JsonUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.core.StringRedisTemplate;
 import org.springframework.data.redis.core.ValueOperations;
@@ -21,7 +21,7 @@ public class RedisSerive {
     private StringRedisTemplate stringRedisTemplate;
 
     @Autowired
-    private JsonUtil<Doctor> jsonUtil;
+    private JsonUtils<Doctor> jsonUtil;
 
     public void insert(String key,String val) {
         ValueOperations<String,String> valueOperations = stringRedisTemplate.opsForValue();

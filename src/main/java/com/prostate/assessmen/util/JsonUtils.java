@@ -1,4 +1,4 @@
-package com.prostate.assessmen.utlis;
+package com.prostate.assessmen.util;
 
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
@@ -6,7 +6,7 @@ import com.prostate.assessmen.entity.Doctor;
 import org.springframework.stereotype.Component;
 
 @Component
-public class JsonUtil<E> {
+public class JsonUtils<E> {
 
     /**
      * java普通对象和json字符串的互转

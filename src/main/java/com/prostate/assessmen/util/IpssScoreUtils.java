@@ -1,4 +1,4 @@
-package com.prostate.assessmen.utlis;
+package com.prostate.assessmen.util;
 
 import lombok.extern.slf4j.Slf4j;
 
@@ -6,7 +6,7 @@ import java.util.LinkedList;
 import java.util.List;
 
 @Slf4j
-public class ScaleScoreUtil {
+public class IpssScoreUtils {
 
     public final static int[] answerList = {1, 1, 1, 1, 1, 1, 0, 1, 2, 3, 4, 5, 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 0, 1,
             2, 3, 4, 5, 0, 1, 2, 3, 4, 5, 0, 1, 2, 3, 4, 5, 0, 1, 2, 3, 4, 5, 0, 1, 2, 3, 4, 5, 0, 1, 2, 3, 4, 5, 0, 1,
