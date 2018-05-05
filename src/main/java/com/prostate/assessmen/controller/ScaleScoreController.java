@@ -4,7 +4,7 @@ import com.prostate.assessmen.cache.redis.RedisSerive;
 import com.prostate.assessmen.entity.Doctor;
 import com.prostate.assessmen.entity.PatientScaleScore;
 import com.prostate.assessmen.service.ScaleScoreService;
-import com.prostate.assessmen.utlis.ScaleScoreUtil;
+import com.prostate.assessmen.util.ScaleScoreUtils;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -35,22 +35,17 @@ public class ScaleScoreController extends BaseController {
      */
     @PostMapping(value = "add")
     public Map add(PatientScaleScore scaleScore, String token, Integer patientAge){
-        log.info("#########前列腺症状量表评估结果添加############");
-        log.info(scaleScore.getAnswer());
-        resultMap = new LinkedHashMap<>();
+        log.info("#########前列腺症状量表评估结果添加############"+scaleScore.getAnswer().length());
         //参数校验
-        if(scaleScore==null){
-            resultMap.put("code","20001");
-            resultMap.put("msg","PARAM_EMPTY");
-            resultMap.put("result",null);
-            return resultMap;
+        if(scaleScore==null||scaleScore.getAnswer().length()<80){
+            return emptyParamResponse();
         }
         Doctor doctor = redisSerive.getDoctor(token);
         scaleScore.setCreateDoctor(doctor.getId());
-        List<Integer> scoreList = ScaleScoreUtil.getScores(scaleScore.getAnswer());
-        String caution = ScaleScoreUtil.checkIllnessType(scoreList,'0',patientAge);
+        List<Integer> scoreList = ScaleScoreUtils.getScores(scaleScore.getAnswer());
+        String caution = ScaleScoreUtils.checkIllnessType(scoreList,'0',patientAge);
         scaleScore.setCaution(caution);
-        String optionScore = ScaleScoreUtil.getOptionScore(scoreList);
+        String optionScore = ScaleScoreUtils.getOptionScore(scoreList);
         scaleScore.setOptionScore(optionScore);
         if(scaleScore.getId()==null||"".equals(scaleScore.getId())){
             scaleScoreService.insertSelective(scaleScore);
@@ -62,6 +57,7 @@ public class ScaleScoreController extends BaseController {
                 scaleScoreService.insertSelectiveById(scaleScore);
             }
         }
+        resultMap = new LinkedHashMap<>();
         resultMap.put("code","20000");
         resultMap.put("msg","SUCCESS");
         resultMap.put("result",scaleScore);

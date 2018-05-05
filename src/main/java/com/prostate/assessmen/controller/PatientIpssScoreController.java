@@ -33,13 +33,9 @@ public class PatientIpssScoreController extends BaseController {
     @PostMapping(value = "add")
     public Map add(PatientIpssScore patientIpssScore, String token){
         log.info("#########前列腺症状评分（IPSS）结果添加############生活质量指数评分（QOL)结果添加############");
-        resultMap = new LinkedHashMap<>();
         //参数校验
         if(patientIpssScore==null){
-            resultMap.put("code","20001");
-            resultMap.put("msg","PARAM_EMPTY");
-            resultMap.put("result",null);
-            return resultMap;
+            return emptyParamResponse();
         }
         Doctor doctor = redisSerive.getDoctor(token);
         patientIpssScore.setCreateDoctor(doctor.getId());
@@ -54,10 +50,7 @@ public class PatientIpssScoreController extends BaseController {
                 patientIpssScoreService.insertSelectiveById(patientIpssScore);
             }
         }
-        resultMap.put("code","20000");
-        resultMap.put("msg","SUCCESS");
-        resultMap.put("result",patientIpssScore);
-        return resultMap;
+        return insertSuccseeResponse(patientIpssScore);
     }
 
 
@@ -69,24 +62,15 @@ public class PatientIpssScoreController extends BaseController {
     @PostMapping(value = "getById")
     public Map getById(String ipssScoreId){
         log.info("########查询一条前列腺症状评分（IPSS）结果添加############生活质量指数评分（QOL)结果############");
-        resultMap = new LinkedHashMap<>();
         //参数校验
         if(ipssScoreId==null){
-            resultMap.put("code","20001");
-            resultMap.put("msg","PARAM_EMPTY");
-            resultMap.put("result",null);
-            return resultMap;
+
+            return emptyParamResponse();
         }
         PatientIpssScore patientIpssScore = patientIpssScoreService.selectById(ipssScoreId);
         if(patientIpssScore!=null){
-            resultMap.put("code","20000");
-            resultMap.put("msg","SUCCESS");
-            resultMap.put("result",patientIpssScore);
-            return resultMap;
+            return querySuccessResponse(patientIpssScore);
         }
-        resultMap.put("code","20002");
-        resultMap.put("msg","EMPTY_RESULT");
-        resultMap.put("result",null);
-        return resultMap;
+        return queryEmptyResponse();
     }
 }

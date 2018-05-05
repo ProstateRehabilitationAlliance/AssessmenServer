@@ -24,54 +24,35 @@ public class PatientAssessmentController extends BaseController {
     @PostMapping(value = "findByPatientId")
     public Map getPatientAssessmentList(String patientId){
         log.info("############根据患者查询 所有评估结果列表############");
-        resultMap = new LinkedHashMap<>();
         //参数校验
         if(patientId==null||"".equals(patientId)){
-            resultMap.put("msg","PARAM_EMPTY");
-            resultMap.put("code","20001");
-            resultMap.put("result",null);
-            return resultMap;
+            return emptyParamResponse();
         }
 
         PatientAssessment patientAssessment =new PatientAssessment();
         patientAssessment.setId(patientId);
+
         List<PatientAssessment> patientAssessmentList =  assessmentService.selectByPatientId(patientAssessment);
         if(patientAssessmentList!=null&&patientAssessmentList.size()>0){
-            resultMap.put("code","20000");
-            resultMap.put("msg","SUCCESS");
-            resultMap.put("result",patientAssessmentList);
-            return resultMap;
+            return querySuccessResponse(patientAssessmentList);
         }
-        resultMap.put("code","20002");
-        resultMap.put("msg","EMPTY_RESULT");
-        resultMap.put("result",null);
-        return resultMap;
+        return queryEmptyResponse();
     }
 
     @PostMapping(value = "getById")
     public Map getPatientAssessment(String id){
          log.info("#########前列腺症状评分（IPSS）结果添加############生活质量指数评分（QOL)结果############");
-         resultMap = new LinkedHashMap<>();
          //参数校验
          if(id==null||"".equals(id)){
-             resultMap.put("code","20001");
-             resultMap.put("msg","PARAM_EMPTY");
-             resultMap.put("result",null);
-             return resultMap;
+             return emptyParamResponse();
          }
          PatientAssessment patientAssessment =new PatientAssessment();
          patientAssessment.setId(id);
          patientAssessment =  assessmentService.selectById(patientAssessment);
          if(patientAssessment!=null){
-             resultMap.put("code","20000");
-             resultMap.put("msg","SUCCESS");
-             resultMap.put("result",patientAssessment);
-             return resultMap;
+             return querySuccessResponse(patientAssessment);
 
          }
-         resultMap.put("code","20002");
-         resultMap.put("msg","EMPTY_RESULT");
-         resultMap.put("result",null);
-         return resultMap;
+         return queryEmptyResponse();
     }
 }

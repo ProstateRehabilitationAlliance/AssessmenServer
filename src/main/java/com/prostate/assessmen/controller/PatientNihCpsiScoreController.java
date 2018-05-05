@@ -27,13 +27,9 @@ public class PatientNihCpsiScoreController extends BaseController {
     @RequestMapping(value = "add")
     public Map add(PatientNihCpsiScore patientNihNpsiScore, String token){
         log.info("#############慢性前列腺炎症状评分（NIH-CPSI）结果添加##############");
-        resultMap = new LinkedHashMap<>();
         //参数校验
         if(patientNihNpsiScore==null){
-            resultMap.put("code","20001");
-            resultMap.put("msg","PARAM_EMPTY");
-            resultMap.put("result",null);
-            return resultMap;
+            return emptyParamResponse();
         }
         Doctor doctor = redisSerive.getDoctor(token);
         patientNihNpsiScore.setCreateDoctor(doctor.getId());
@@ -49,10 +45,7 @@ public class PatientNihCpsiScoreController extends BaseController {
                 patientNihCpsiScoreService.insertSelectiveById(patientNihNpsiScore);
             }
         }
-        resultMap.put("code","20000");
-        resultMap.put("msg","SUCCESS");
-        resultMap.put("result",patientNihNpsiScore);
-        return resultMap;
+        return insertSuccseeResponse(patientNihNpsiScore);
     }
 
 
@@ -64,24 +57,16 @@ public class PatientNihCpsiScoreController extends BaseController {
     @PostMapping(value = "getById")
     public Map getById(String nihCpsiScoreId){
         log.info("########查询一条性前列腺炎症状评分（NIH-CPSI）结果############");
-        resultMap = new LinkedHashMap<>();
         //参数校验
         if(nihCpsiScoreId==null){
-            resultMap.put("code","20001");
-            resultMap.put("msg","PARAM_EMPTY");
-            resultMap.put("result",null);
-            return resultMap;
+
+            return emptyParamResponse();
         }
         PatientNihCpsiScore patientNihCpsiScore = patientNihCpsiScoreService.selectById(nihCpsiScoreId);
         if(patientNihCpsiScore!=null){
-            resultMap.put("code","20000");
-            resultMap.put("msg","SUCCESS");
-            resultMap.put("result",patientNihCpsiScore);
-            return resultMap;
+
+            return querySuccessResponse(patientNihCpsiScore);
         }
-        resultMap.put("code","20002");
-        resultMap.put("msg","EMPTY_RESULT");
-        resultMap.put("result",null);
-        return resultMap;
+        return queryEmptyResponse();
     }
 }
