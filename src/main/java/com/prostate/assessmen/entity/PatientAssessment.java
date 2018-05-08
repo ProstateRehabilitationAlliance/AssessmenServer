@@ -11,23 +11,14 @@ public class PatientAssessment {
 
     private String id;
 
-    private int nihCpsiScore;
+    private String totalScore;
 
-    private int ipssScore;
+    private String caution;
 
-    private int scaleScore;
-
-    private String scaleCaution;
-
-    private PatientIpssScore patientIpssScore;
-
-    private PatientNihCpsiScore patientNihNpsiScore;
-
-    private PatientScaleScore patientScaleScore;
+    private String scoreType;
 
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss",timezone = "GMT+8")
     private Date createTime;
-
 
     public String getId() {
         return id;
@@ -37,60 +28,28 @@ public class PatientAssessment {
         this.id = id;
     }
 
-    public int getIpssScore() {
-        return ipssScore;
+    public String getTotalScore() {
+        return totalScore;
     }
 
-    public void setIpssScore(int ipssScore) {
-        this.ipssScore = ipssScore;
+    public void setTotalScore(String totalScore) {
+        this.totalScore = totalScore;
     }
 
-    public int getNihCpsiScore() {
-        return nihCpsiScore;
+    public String getCaution() {
+        return caution;
     }
 
-    public void setNihCpsiScore(int nihCpsiScore) {
-        this.nihCpsiScore = nihCpsiScore;
+    public void setCaution(String caution) {
+        this.caution = caution;
     }
 
-    public int getScaleScore() {
-        return scaleScore;
+    public String getScoreType() {
+        return scoreType;
     }
 
-    public void setScaleScore(int scaleScore) {
-        this.scaleScore = scaleScore;
-    }
-
-    public PatientIpssScore getPatientIpssScore() {
-        return patientIpssScore;
-    }
-
-    public void setPatientIpssScore(PatientIpssScore patientIpssScore) {
-        this.patientIpssScore = patientIpssScore;
-    }
-
-    public PatientNihCpsiScore getPatientNihNpsiScore() {
-        return patientNihNpsiScore;
-    }
-
-    public void setPatientNihNpsiScore(PatientNihCpsiScore patientNihNpsiScore) {
-        this.patientNihNpsiScore = patientNihNpsiScore;
-    }
-
-    public String getScaleCaution() {
-        return scaleCaution;
-    }
-
-    public void setScaleCaution(String scaleCaution) {
-        this.scaleCaution = scaleCaution;
-    }
-
-    public PatientScaleScore getPatientScaleScore() {
-        return patientScaleScore;
-    }
-
-    public void setPatientScaleScore(PatientScaleScore patientScaleScore) {
-        this.patientScaleScore = patientScaleScore;
+    public void setScoreType(String scoreType) {
+        this.scoreType = scoreType;
     }
 
     public Date getCreateTime() {

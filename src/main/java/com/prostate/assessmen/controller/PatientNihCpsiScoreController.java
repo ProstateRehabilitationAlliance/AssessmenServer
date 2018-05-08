@@ -4,6 +4,8 @@ import com.prostate.assessmen.cache.redis.RedisSerive;
 import com.prostate.assessmen.entity.Doctor;
 import com.prostate.assessmen.entity.PatientNihCpsiScore;
 import com.prostate.assessmen.service.PatientNihCpsiScoreService;
+import com.prostate.assessmen.util.NihCpsiScoreUtils;
+import com.prostate.assessmen.util.ScaleScoreUtils;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -11,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.LinkedHashMap;
+import java.util.List;
 import java.util.Map;
 
 @Slf4j
@@ -33,6 +36,12 @@ public class PatientNihCpsiScoreController extends BaseController {
         }
         Doctor doctor = redisSerive.getDoctor(token);
         patientNihNpsiScore.setCreateDoctor(doctor.getId());
+
+        List<Integer> scoreList = NihCpsiScoreUtils.getScores(patientNihNpsiScore.getAnswer());
+        String caution = NihCpsiScoreUtils.checkDegree(scoreList);
+        patientNihNpsiScore.setCaution(caution);
+        String optionScore = NihCpsiScoreUtils.getOptionScore(scoreList);
+        patientNihNpsiScore.setOptionScore(optionScore);
 
         if(patientNihNpsiScore.getId()==null||"".equals(patientNihNpsiScore.getId())){
             patientNihCpsiScoreService.insertSelective(patientNihNpsiScore);

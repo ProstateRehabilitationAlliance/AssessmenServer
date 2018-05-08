@@ -10,15 +10,15 @@ public class PatientIpssScore {
 
     private String patientId;
 
-    private String symptomScore;
-
-    private String lifeScore;
-
     private String ipssScore;
 
     private String answer;
 
+    private String optionScore;
+
     private String caution;
+
+    private String scoreType;
 
     private String createDoctor;
 
@@ -50,20 +50,14 @@ public class PatientIpssScore {
         this.patientId = patientId == null ? null : patientId.trim();
     }
 
-    public String getSymptomScore() {
-        return symptomScore;
+
+
+    public String getOptionScore() {
+        return optionScore;
     }
 
-    public void setSymptomScore(String symptomScore) {
-        this.symptomScore = symptomScore == null ? null : symptomScore.trim();
-    }
-
-    public String getLifeScore() {
-        return lifeScore;
-    }
-
-    public void setLifeScore(String lifeScore) {
-        this.lifeScore = lifeScore == null ? null : lifeScore.trim();
+    public void setOptionScore(String optionScore) {
+        this.optionScore = optionScore;
     }
 
     public String getIpssScore() {
@@ -144,5 +138,13 @@ public class PatientIpssScore {
 
     public void setDelFlag(String delFlag) {
         this.delFlag = delFlag == null ? null : delFlag.trim();
+    }
+
+    public String getScoreType() {
+        return scoreType;
+    }
+
+    public void setScoreType(String scoreType) {
+        this.scoreType = scoreType;
     }
 }

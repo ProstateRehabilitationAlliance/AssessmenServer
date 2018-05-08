@@ -4,6 +4,7 @@ import com.prostate.assessmen.cache.redis.RedisSerive;
 import com.prostate.assessmen.entity.Doctor;
 import com.prostate.assessmen.entity.PatientIpssScore;
 import com.prostate.assessmen.service.PatientIpssScoreService;
+import com.prostate.assessmen.util.IpssScoreUtils;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -11,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.LinkedHashMap;
+import java.util.List;
 import java.util.Map;
 
 @Slf4j
@@ -39,6 +41,12 @@ public class PatientIpssScoreController extends BaseController {
         }
         Doctor doctor = redisSerive.getDoctor(token);
         patientIpssScore.setCreateDoctor(doctor.getId());
+
+        List<Integer> scoreList = IpssScoreUtils.getScores(patientIpssScore.getAnswer());
+        String caution = IpssScoreUtils.checkDegree(scoreList);
+        patientIpssScore.setCaution(caution);
+        String optionScore = IpssScoreUtils.getOptionScore(scoreList);
+        patientIpssScore.setOptionScore(optionScore);
 
         if(patientIpssScore.getId()==null||"".equals(patientIpssScore.getId())){
             patientIpssScoreService.insertSelective(patientIpssScore);

@@ -10,17 +10,15 @@ public class PatientNihCpsiScore {
 
     private String patientId;
 
-    private String inflammationScore;
-
-    private String symptomScore;
-
-    private String lifeScore;
-
     private String nihCpsiScore;
 
     private String answer;
 
+    private String optionScore;
+
     private String caution;
+
+    private String scoreType;
 
     private String createDoctor;
 
@@ -52,29 +50,19 @@ public class PatientNihCpsiScore {
         this.patientId = patientId == null ? null : patientId.trim();
     }
 
-    public String getInflammationScore() {
-        return inflammationScore;
+
+
+
+
+    public String getOptionScore() {
+        return optionScore;
     }
 
-    public void setInflammationScore(String inflammationScore) {
-        this.inflammationScore = inflammationScore == null ? null : inflammationScore.trim();
+    public void setOptionScore(String optionScore) {
+        this.optionScore = optionScore;
     }
 
-    public String getSymptomScore() {
-        return symptomScore;
-    }
 
-    public void setSymptomScore(String symptomScore) {
-        this.symptomScore = symptomScore == null ? null : symptomScore.trim();
-    }
-
-    public String getLifeScore() {
-        return lifeScore;
-    }
-
-    public void setLifeScore(String lifeScore) {
-        this.lifeScore = lifeScore == null ? null : lifeScore.trim();
-    }
 
     public String getNihCpsiScore() {
         return nihCpsiScore;
@@ -154,5 +142,13 @@ public class PatientNihCpsiScore {
 
     public void setDelFlag(String delFlag) {
         this.delFlag = delFlag == null ? null : delFlag.trim();
+    }
+
+    public String getScoreType() {
+        return scoreType;
+    }
+
+    public void setScoreType(String scoreType) {
+        this.scoreType = scoreType;
     }
 }
