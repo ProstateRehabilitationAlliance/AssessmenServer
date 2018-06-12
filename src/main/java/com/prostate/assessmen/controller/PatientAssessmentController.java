@@ -55,4 +55,24 @@ public class PatientAssessmentController extends BaseController {
          }
          return queryEmptyResponse();
     }
+
+    /********************************************************/
+    @PostMapping(value = "findByWechatToken")
+    public Map findByWechatToken(String patientId,String token){
+        log.info("############微信端根据患者查询 所有评估结果列表############");
+        //参数校验
+        patientId = "8871fd0d532c11e8967f00163e08d49b";
+        if(patientId==null||"".equals(patientId)){
+            return emptyParamResponse();
+        }
+
+        PatientAssessment patientAssessment =new PatientAssessment();
+        patientAssessment.setId(patientId);
+
+        List<PatientAssessment> patientAssessmentList =  assessmentService.selectByPatientId(patientAssessment);
+        if(patientAssessmentList!=null&&patientAssessmentList.size()>0){
+            return querySuccessResponse(patientAssessmentList);
+        }
+        return queryEmptyResponse();
+    }
 }
