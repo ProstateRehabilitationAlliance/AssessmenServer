@@ -26,6 +26,13 @@
     <result column="delete_doctor" jdbcType="VARCHAR" property="deleteDoctor" />
     <result column="delete_time" jdbcType="TIMESTAMP" property="deleteTime" />
     <result column="del_flag" jdbcType="VARCHAR" property="delFlag" />
+    <result column="urine_routine_inspect_time" jdbcType="TIMESTAMP" property="urineRoutineInspectTime" />
+    <result column="urine_flow_rate_inspect_time" jdbcType="TIMESTAMP" property="urineFlowRateInspectTime" />
+    <result column="ultrasonography_b_inspect_time" jdbcType="TIMESTAMP" property="ultrasonographyBInspectTime" />
+    <result column="digital_rectal_inspect_time" jdbcType="TIMESTAMP" property="digitalRectalInspectTime" />
+    <result column="expressed_prostatic_secretion_inspect_time" jdbcType="TIMESTAMP" property="expressedProstaticSecretionInspectTime" />
+    <result column="specific_antigen_inspect_time" jdbcType="TIMESTAMP" property="specificAntigenInspectTime" />
+    <result column="blood_routine_inspect_time" jdbcType="TIMESTAMP" property="bloodRoutineInspectTime" />
   </resultMap>
   <sql id="Base_Column_List">
     id, patient_id, blood_routine_answer, digital_rectal_answer, expressed_prostatic_secretion_answer, 
@@ -33,13 +40,30 @@
     medical_examination_remark, blood_routine_remark, digital_rectal_remark, expressed_prostatic_secretion_remark, 
     specific_antigen_remark, ultrasonography_b_remark, urine_flow_rate_remark, urine_routine_remark, 
     create_doctor, create_time, update_doctor, update_time, delete_doctor, delete_time, 
-    del_flag
+    del_flag, urine_routine_inspect_time, urine_flow_rate_inspect_time, ultrasonography_b_inspect_time, 
+    digital_rectal_inspect_time, expressed_prostatic_secretion_inspect_time, specific_antigen_inspect_time, 
+    blood_routine_inspect_time
   </sql>
   <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="BaseResultMap">
     select 
     <include refid="Base_Column_List" />
     from pra_prostatic_medical_examination
     where id = #{id,jdbcType=VARCHAR}
+  </select>
+
+  <sql id="ProstaticMedicalExamination_List_Column_List">
+    id,medical_examination_remark, blood_routine_remark, digital_rectal_remark, expressed_prostatic_secretion_remark,
+    specific_antigen_remark, ultrasonography_b_remark, urine_flow_rate_remark, urine_routine_remark,
+    create_doctor, create_time
+  </sql>
+  <select id="selectByParams" parameterType="com.prostate.assessmen.entity.ProstaticMedicalExamination" resultMap="BaseResultMap">
+    select
+    <include refid="ProstaticMedicalExamination_List_Column_List" />
+    from pra_prostatic_medical_examination
+    <where>
+      patient_id = #{patientId,jdbcType=VARCHAR}
+    </where>
+    ORDER BY create_time DESC
   </select>
   <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
     delete from pra_prostatic_medical_examination
@@ -56,7 +80,10 @@
       urine_flow_rate_remark, urine_routine_remark, 
       create_doctor, create_time, update_doctor, 
       update_time, delete_doctor, delete_time, 
-      del_flag)
+      del_flag, urine_routine_inspect_time, urine_flow_rate_inspect_time, 
+      ultrasonography_b_inspect_time, digital_rectal_inspect_time, 
+      expressed_prostatic_secretion_inspect_time, specific_antigen_inspect_time, 
+      blood_routine_inspect_time)
     values (#{id,jdbcType=VARCHAR}, #{patientId,jdbcType=VARCHAR}, #{bloodRoutineAnswer,jdbcType=VARCHAR}, 
       #{digitalRectalAnswer,jdbcType=VARCHAR}, #{expressedProstaticSecretionAnswer,jdbcType=VARCHAR}, 
       #{specificAntigenAnswer,jdbcType=VARCHAR}, #{ultrasonographyBAnswer,jdbcType=VARCHAR}, 
@@ -67,7 +94,10 @@
       #{urineFlowRateRemark,jdbcType=VARCHAR}, #{urineRoutineRemark,jdbcType=VARCHAR}, 
       #{createDoctor,jdbcType=VARCHAR}, #{createTime,jdbcType=TIMESTAMP}, #{updateDoctor,jdbcType=VARCHAR}, 
       #{updateTime,jdbcType=TIMESTAMP}, #{deleteDoctor,jdbcType=VARCHAR}, #{deleteTime,jdbcType=TIMESTAMP}, 
-      #{delFlag,jdbcType=VARCHAR})
+      #{delFlag,jdbcType=VARCHAR}, #{urineRoutineInspectTime,jdbcType=TIMESTAMP}, #{urineFlowRateInspectTime,jdbcType=TIMESTAMP}, 
+      #{ultrasonographyBInspectTime,jdbcType=TIMESTAMP}, #{digitalRectalInspectTime,jdbcType=TIMESTAMP}, 
+      #{expressedProstaticSecretionInspectTime,jdbcType=TIMESTAMP}, #{specificAntigenInspectTime,jdbcType=TIMESTAMP}, 
+      #{bloodRoutineInspectTime,jdbcType=TIMESTAMP})
   </insert>
   <insert id="insertSelective" parameterType="com.prostate.assessmen.entity.ProstaticMedicalExamination">
     <selectKey keyProperty="id" resultType="java.lang.String"
@@ -148,6 +178,27 @@
       <if test="delFlag != null">
         del_flag,
       </if>
+      <if test="urineRoutineInspectTime != null">
+        urine_routine_inspect_time,
+      </if>
+      <if test="urineFlowRateInspectTime != null">
+        urine_flow_rate_inspect_time,
+      </if>
+      <if test="ultrasonographyBInspectTime != null">
+        ultrasonography_b_inspect_time,
+      </if>
+      <if test="digitalRectalInspectTime != null">
+        digital_rectal_inspect_time,
+      </if>
+      <if test="expressedProstaticSecretionInspectTime != null">
+        expressed_prostatic_secretion_inspect_time,
+      </if>
+      <if test="specificAntigenInspectTime != null">
+        specific_antigen_inspect_time,
+      </if>
+      <if test="bloodRoutineInspectTime != null">
+        blood_routine_inspect_time,
+      </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides=",">
       <if test="id != null">
@@ -221,6 +272,27 @@
       </if>
       <if test="delFlag != null">
         #{delFlag,jdbcType=VARCHAR},
+      </if>
+      <if test="urineRoutineInspectTime != null">
+        #{urineRoutineInspectTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="urineFlowRateInspectTime != null">
+        #{urineFlowRateInspectTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="ultrasonographyBInspectTime != null">
+        #{ultrasonographyBInspectTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="digitalRectalInspectTime != null">
+        #{digitalRectalInspectTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="expressedProstaticSecretionInspectTime != null">
+        #{expressedProstaticSecretionInspectTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="specificAntigenInspectTime != null">
+        #{specificAntigenInspectTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="bloodRoutineInspectTime != null">
+        #{bloodRoutineInspectTime,jdbcType=TIMESTAMP},
       </if>
     </trim>
   </insert>
@@ -296,6 +368,27 @@
       <if test="delFlag != null">
         del_flag = #{delFlag,jdbcType=VARCHAR},
       </if>
+      <if test="urineRoutineInspectTime != null">
+        urine_routine_inspect_time = #{urineRoutineInspectTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="urineFlowRateInspectTime != null">
+        urine_flow_rate_inspect_time = #{urineFlowRateInspectTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="ultrasonographyBInspectTime != null">
+        ultrasonography_b_inspect_time = #{ultrasonographyBInspectTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="digitalRectalInspectTime != null">
+        digital_rectal_inspect_time = #{digitalRectalInspectTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="expressedProstaticSecretionInspectTime != null">
+        expressed_prostatic_secretion_inspect_time = #{expressedProstaticSecretionInspectTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="specificAntigenInspectTime != null">
+        specific_antigen_inspect_time = #{specificAntigenInspectTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="bloodRoutineInspectTime != null">
+        blood_routine_inspect_time = #{bloodRoutineInspectTime,jdbcType=TIMESTAMP},
+      </if>
     </set>
     where id = #{id,jdbcType=VARCHAR}
   </update>
@@ -323,7 +416,14 @@
       update_time = #{updateTime,jdbcType=TIMESTAMP},
       delete_doctor = #{deleteDoctor,jdbcType=VARCHAR},
       delete_time = #{deleteTime,jdbcType=TIMESTAMP},
-      del_flag = #{delFlag,jdbcType=VARCHAR}
+      del_flag = #{delFlag,jdbcType=VARCHAR},
+      urine_routine_inspect_time = #{urineRoutineInspectTime,jdbcType=TIMESTAMP},
+      urine_flow_rate_inspect_time = #{urineFlowRateInspectTime,jdbcType=TIMESTAMP},
+      ultrasonography_b_inspect_time = #{ultrasonographyBInspectTime,jdbcType=TIMESTAMP},
+      digital_rectal_inspect_time = #{digitalRectalInspectTime,jdbcType=TIMESTAMP},
+      expressed_prostatic_secretion_inspect_time = #{expressedProstaticSecretionInspectTime,jdbcType=TIMESTAMP},
+      specific_antigen_inspect_time = #{specificAntigenInspectTime,jdbcType=TIMESTAMP},
+      blood_routine_inspect_time = #{bloodRoutineInspectTime,jdbcType=TIMESTAMP}
     where id = #{id,jdbcType=VARCHAR}
   </update>
 </mapper>

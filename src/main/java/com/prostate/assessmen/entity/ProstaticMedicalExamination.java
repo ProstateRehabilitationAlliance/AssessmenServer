@@ -1,7 +1,11 @@
 package com.prostate.assessmen.entity;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.annotation.JsonInclude;
+
 import java.util.Date;
 
+@JsonInclude(JsonInclude.Include.NON_NULL)
 public class ProstaticMedicalExamination {
     private String id;
 
@@ -39,6 +43,7 @@ public class ProstaticMedicalExamination {
 
     private String createDoctor;
 
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss",timezone = "GMT+8" )
     private Date createTime;
 
     private String updateDoctor;
@@ -50,6 +55,20 @@ public class ProstaticMedicalExamination {
     private Date deleteTime;
 
     private String delFlag;
+
+    private String urineRoutineInspectTime;
+
+    private String urineFlowRateInspectTime;
+
+    private String ultrasonographyBInspectTime;
+
+    private String digitalRectalInspectTime;
+
+    private String expressedProstaticSecretionInspectTime;
+
+    private String specificAntigenInspectTime;
+
+    private String bloodRoutineInspectTime;
 
     public String getId() {
         return id;
@@ -241,5 +260,98 @@ public class ProstaticMedicalExamination {
 
     public void setDelFlag(String delFlag) {
         this.delFlag = delFlag == null ? null : delFlag.trim();
+    }
+
+    public String getUrineRoutineInspectTime() {
+        return urineRoutineInspectTime;
+    }
+
+    public void setUrineRoutineInspectTime(String urineRoutineInspectTime) {
+        this.urineRoutineInspectTime = urineRoutineInspectTime;
+    }
+
+    public String getUrineFlowRateInspectTime() {
+        return urineFlowRateInspectTime;
+    }
+
+    public void setUrineFlowRateInspectTime(String urineFlowRateInspectTime) {
+        this.urineFlowRateInspectTime = urineFlowRateInspectTime;
+    }
+
+    public String getUltrasonographyBInspectTime() {
+        return ultrasonographyBInspectTime;
+    }
+
+    public void setUltrasonographyBInspectTime(String ultrasonographyBInspectTime) {
+        this.ultrasonographyBInspectTime = ultrasonographyBInspectTime;
+    }
+
+    public String getDigitalRectalInspectTime() {
+        return digitalRectalInspectTime;
+    }
+
+    public void setDigitalRectalInspectTime(String digitalRectalInspectTime) {
+        this.digitalRectalInspectTime = digitalRectalInspectTime;
+    }
+
+    public String getExpressedProstaticSecretionInspectTime() {
+        return expressedProstaticSecretionInspectTime;
+    }
+
+    public void setExpressedProstaticSecretionInspectTime(String expressedProstaticSecretionInspectTime) {
+        this.expressedProstaticSecretionInspectTime = expressedProstaticSecretionInspectTime;
+    }
+
+    public String getSpecificAntigenInspectTime() {
+        return specificAntigenInspectTime;
+    }
+
+    public void setSpecificAntigenInspectTime(String specificAntigenInspectTime) {
+        this.specificAntigenInspectTime = specificAntigenInspectTime;
+    }
+
+    public String getBloodRoutineInspectTime() {
+        return bloodRoutineInspectTime;
+    }
+
+    public void setBloodRoutineInspectTime(String bloodRoutineInspectTime) {
+        this.bloodRoutineInspectTime = bloodRoutineInspectTime;
+    }
+
+    @Override
+    public String toString() {
+        return "ProstaticMedicalExamination{" +
+                "id='" + id + '\'' +
+                ", patientId='" + patientId + '\'' +
+                ", bloodRoutineAnswer='" + bloodRoutineAnswer + '\'' +
+                ", digitalRectalAnswer='" + digitalRectalAnswer + '\'' +
+                ", expressedProstaticSecretionAnswer='" + expressedProstaticSecretionAnswer + '\'' +
+                ", specificAntigenAnswer='" + specificAntigenAnswer + '\'' +
+                ", ultrasonographyBAnswer='" + ultrasonographyBAnswer + '\'' +
+                ", urineFlowRateAnswer='" + urineFlowRateAnswer + '\'' +
+                ", urineRoutineAnswer='" + urineRoutineAnswer + '\'' +
+                ", medicalExaminationRemark='" + medicalExaminationRemark + '\'' +
+                ", bloodRoutineRemark='" + bloodRoutineRemark + '\'' +
+                ", digitalRectalRemark='" + digitalRectalRemark + '\'' +
+                ", expressedProstaticSecretionRemark='" + expressedProstaticSecretionRemark + '\'' +
+                ", specificAntigenRemark='" + specificAntigenRemark + '\'' +
+                ", ultrasonographyBRemark='" + ultrasonographyBRemark + '\'' +
+                ", urineFlowRateRemark='" + urineFlowRateRemark + '\'' +
+                ", urineRoutineRemark='" + urineRoutineRemark + '\'' +
+                ", createDoctor='" + createDoctor + '\'' +
+                ", createTime=" + createTime +
+                ", updateDoctor='" + updateDoctor + '\'' +
+                ", updateTime=" + updateTime +
+                ", deleteDoctor='" + deleteDoctor + '\'' +
+                ", deleteTime=" + deleteTime +
+                ", delFlag='" + delFlag + '\'' +
+                ", urineRoutineInspectTime=" + urineRoutineInspectTime +
+                ", urineFlowRateInspectTime=" + urineFlowRateInspectTime +
+                ", ultrasonographyBInspectTime=" + ultrasonographyBInspectTime +
+                ", digitalRectalInspectTime=" + digitalRectalInspectTime +
+                ", expressedProstaticSecretionInspectTime=" + expressedProstaticSecretionInspectTime +
+                ", specificAntigenInspectTime=" + specificAntigenInspectTime +
+                ", bloodRoutineInspectTime=" + bloodRoutineInspectTime +
+                '}';
     }
 }

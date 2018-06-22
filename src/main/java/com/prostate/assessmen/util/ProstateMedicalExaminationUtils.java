@@ -99,6 +99,7 @@ public class ProstateMedicalExaminationUtils {
         if (bloodRoutineList.indexOf(1) < 0 && expressedProstaticSecretionList.indexOf(1) < 0 && ultrasonographyBList.indexOf(1) < 0 && urineRoutineList.indexOf(1) < 0) {
             prostaticMedicalExamination.setMedicalExaminationRemark(prostatitisRemarks[4]);
         }
+
     }
 
     /**
@@ -150,6 +151,7 @@ public class ProstateMedicalExaminationUtils {
                                       List<Integer> urineRoutineList,
                                       ProstaticMedicalExamination prostaticMedicalExamination) {
 
+
         //异常项提示 定义
         String bloodRoutineRemark;
         String digitalRectalRemark;
@@ -166,35 +168,34 @@ public class ProstateMedicalExaminationUtils {
         }
         //前列腺指检异常值提示添加
         if (digitalRectalList != null && digitalRectalList.size() > 0) {
-            digitalRectalRemark = st(bloodRoutineList, digitalRectalRemarks);
+            digitalRectalRemark = st(digitalRectalList, digitalRectalRemarks);
             prostaticMedicalExamination.setDigitalRectalRemark(digitalRectalRemark);
         }
         //前列腺按摩液提示添加
         if (expressedProstaticSecretionList != null && expressedProstaticSecretionList.size() > 0) {
-            expressedProstaticSecretionRemark = st(bloodRoutineList, expressedProstaticSecretionRemarks);
+            expressedProstaticSecretionRemark = st(expressedProstaticSecretionList, expressedProstaticSecretionRemarks);
             prostaticMedicalExamination.setExpressedProstaticSecretionRemark(expressedProstaticSecretionRemark);
         }
         //特异性抗原提示添加
         if (specificAntigenList != null && specificAntigenList.size() > 0) {
-            specificAntigenRemark = st(bloodRoutineList, specificAntigenRemarks);
+            specificAntigenRemark = st(specificAntigenList, specificAntigenRemarks);
             prostaticMedicalExamination.setSpecificAntigenRemark(specificAntigenRemark);
         }
         //B超提示添加
         if (ultrasonographyBList != null && ultrasonographyBList.size() > 0) {
-            ultrasonographyBRemark = st(bloodRoutineList, ultrasonographyBRemarks);
+            ultrasonographyBRemark = st(ultrasonographyBList, ultrasonographyBRemarks);
             prostaticMedicalExamination.setUltrasonographyBRemark(ultrasonographyBRemark);
         }
         //尿流率提示添加
         if (urineFlowRateList != null && urineFlowRateList.size() > 0) {
-            urineFlowRateRemark = st(bloodRoutineList, urineFlowRateRemarks);
+            urineFlowRateRemark = st(urineFlowRateList, urineFlowRateRemarks);
             prostaticMedicalExamination.setUrineFlowRateRemark(urineFlowRateRemark);
         }
         //尿常规提示添加
         if (urineRoutineList != null && urineRoutineList.size() > 0) {
-            urineRoutineRemark = st(bloodRoutineList, urineRoutineRemarks);
+            urineRoutineRemark = st(urineRoutineList, urineRoutineRemarks);
             prostaticMedicalExamination.setUrineRoutineRemark(urineRoutineRemark);
         }
-
     }
 
     public static String st(List<Integer> list, String[] remarks) {

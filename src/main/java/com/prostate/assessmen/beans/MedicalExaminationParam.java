@@ -1,5 +1,7 @@
 package com.prostate.assessmen.beans;
 
+import java.util.Date;
+
 public class MedicalExaminationParam {
 
 
@@ -18,6 +20,16 @@ public class MedicalExaminationParam {
     private String urineFlowRateAnswer;
 
     private String urineRoutineAnswer;
+
+
+    private Date bloodRoutineInspectTime;
+    private Date digitalRectalInspectTime;
+    private Date expressedProstaticSecretionInspectTime;
+    private Date specificAntigenInspectTime;
+    private Date ultrasonographyBInspectTime;
+    private Date urineFlowRateInspectTime;
+    private Date urineRoutineInspectTime;
+
 
     public String getPatientAge() {
         return patientAge;
@@ -83,6 +95,62 @@ public class MedicalExaminationParam {
         this.urineRoutineAnswer = urineRoutineAnswer;
     }
 
+    public Date getBloodRoutineInspectTime() {
+        return bloodRoutineInspectTime;
+    }
+
+    public void setBloodRoutineInspectTime(Date bloodRoutineInspectTime) {
+        this.bloodRoutineInspectTime = bloodRoutineInspectTime;
+    }
+
+    public Date getDigitalRectalInspectTime() {
+        return digitalRectalInspectTime;
+    }
+
+    public void setDigitalRectalInspectTime(Date digitalRectalInspectTime) {
+        this.digitalRectalInspectTime = digitalRectalInspectTime;
+    }
+
+    public Date getExpressedProstaticSecretionInspectTime() {
+        return expressedProstaticSecretionInspectTime;
+    }
+
+    public void setExpressedProstaticSecretionInspectTime(Date expressedProstaticSecretionInspectTime) {
+        this.expressedProstaticSecretionInspectTime = expressedProstaticSecretionInspectTime;
+    }
+
+    public Date getSpecificAntigenInspectTime() {
+        return specificAntigenInspectTime;
+    }
+
+    public void setSpecificAntigenInspectTime(Date specificAntigenInspectTime) {
+        this.specificAntigenInspectTime = specificAntigenInspectTime;
+    }
+
+    public Date getUltrasonographyBInspectTime() {
+        return ultrasonographyBInspectTime;
+    }
+
+    public void setUltrasonographyBInspectTime(Date ultrasonographyBInspectTime) {
+        this.ultrasonographyBInspectTime = ultrasonographyBInspectTime;
+    }
+
+    public Date getUrineFlowRateInspectTime() {
+        return urineFlowRateInspectTime;
+    }
+
+    public void setUrineFlowRateInspectTime(Date urineFlowRateInspectTime) {
+        this.urineFlowRateInspectTime = urineFlowRateInspectTime;
+    }
+
+    public Date getUrineRoutineInspectTime() {
+        return urineRoutineInspectTime;
+    }
+
+    public void setUrineRoutineInspectTime(Date urineRoutineInspectTime) {
+        this.urineRoutineInspectTime = urineRoutineInspectTime;
+    }
+
     @Override
     public String toString() {
         return "MedicalExaminationParam{" +
@@ -94,6 +162,13 @@ public class MedicalExaminationParam {
                 ", ultrasonographyBAnswer='" + ultrasonographyBAnswer + '\'' +
                 ", urineFlowRateAnswer='" + urineFlowRateAnswer + '\'' +
                 ", urineRoutineAnswer='" + urineRoutineAnswer + '\'' +
+                ", bloodRoutineInspectTime=" + bloodRoutineInspectTime +
+                ", digitalRectalInspectTime=" + digitalRectalInspectTime +
+                ", expressedProstaticSecretionInspectTime=" + expressedProstaticSecretionInspectTime +
+                ", specificAntigenInspectTime=" + specificAntigenInspectTime +
+                ", ultrasonographyBInspectTime=" + ultrasonographyBInspectTime +
+                ", urineFlowRateInspectTime=" + urineFlowRateInspectTime +
+                ", urineRoutineInspectTime=" + urineRoutineInspectTime +
                 '}';
     }
 }

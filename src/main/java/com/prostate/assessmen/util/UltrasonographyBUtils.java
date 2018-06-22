@@ -39,6 +39,7 @@ public class UltrasonographyBUtils {
             }
             i++;
         }
+        log.info(ultrasonographyBList.toString());
         return ultrasonographyBList;
     }
 }
