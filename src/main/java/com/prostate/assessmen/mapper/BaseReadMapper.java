@@ -2,15 +2,10 @@ package com.prostate.assessmen.mapper;
 
 import java.util.List;
 
-public interface BaseMapper<E>{
-
-    int insertSelective(E e);
-
-    int updateSelective(E e);
+public interface BaseReadMapper<E>{
 
     E selectById(String id);
 
     List<E> selectByParams(E e);
 
-    int deleteById(String id);
 }

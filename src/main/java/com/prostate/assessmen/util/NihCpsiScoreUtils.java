@@ -133,6 +133,27 @@ public class NihCpsiScoreUtils {
 
         return scores.toString();
     }
+    public static String countInflammationScore(String answer) {
+        List<Integer> scores = getScores(answer);
+        Integer score = sumList(scores.subList(0,28));
+
+        return score.toString();
+    }
+
+    public static String countLifeScore(String answer) {
+        List<Integer> scores = getScores(answer);
+        Integer score = sumList(scores.subList(28,38));
+
+        return score.toString();
+    }
+
+    public static String countSymptomScore(String answer) {
+        List<Integer> scores = getScores(answer);
+
+        Integer score = sumList(scores.subList(38,50));
+
+        return score.toString();
+    }
 
     private static int sumList(List<Integer> conScoreList) {
         int result = 0;

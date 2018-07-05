@@ -119,6 +119,36 @@ public class IpssScoreUtils {
         return scores.toString();
     }
 
+
+    /**
+     * 计算症状评分
+     *
+     * @param answer
+     * @return
+     */
+    public static String countSymptomScore(String answer) {
+        List<Integer> scores = getOptionScoreInt(answer);
+        List<Integer> conScoreList = scores.subList(0, 7);
+
+        Integer score = sumList(conScoreList);
+        return score.toString();
+    }
+
+    /**
+     * 计算生活质量评分
+     *
+     * @param answer
+     * @return
+     */
+    public static String countLifeScore(String answer) {
+        List<Integer> scores = getOptionScoreInt(answer);
+        List<Integer> conScoreList = scores.subList(7, 8);
+
+        Integer score = sumList(conScoreList);
+
+        return score.toString();
+    }
+
     private static int sumList(List<Integer> conScoreList) {
         int result = 0;
 
@@ -126,5 +156,27 @@ public class IpssScoreUtils {
             result += num;
         }
         return result;
+    }
+
+    /**
+     * 获取 题目得分 结果集
+     *
+     * @param answer
+     * @return
+     */
+    private static List<Integer> getOptionScoreInt(String answer) {
+        List<Integer> scoreList = getScores(answer);
+        List<Integer> newScoreList = new LinkedList<>();
+
+        newScoreList.add(sumList(scoreList.subList(0, 6)));
+        newScoreList.add(sumList(scoreList.subList(6, 12)));
+        newScoreList.add(sumList(scoreList.subList(12, 18)));
+        newScoreList.add(sumList(scoreList.subList(18, 24)));
+        newScoreList.add(sumList(scoreList.subList(24, 30)));
+        newScoreList.add(sumList(scoreList.subList(30, 36)));
+        newScoreList.add(sumList(scoreList.subList(36, 42)));
+        newScoreList.add(sumList(scoreList.subList(42, 49)));
+
+        return newScoreList;
     }
 }

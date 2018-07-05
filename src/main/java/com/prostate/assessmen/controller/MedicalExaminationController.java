@@ -32,7 +32,9 @@ public class MedicalExaminationController extends BaseController {
      */
     @RequestMapping(value = "add")
     public Map add(ProstaticMedicalExamination prostaticMedicalExamination, String patientAge, String token) {
+
         String patientId = prostaticMedicalExamination.getPatientId();
+        //参数校验
         if ((patientId == null || "".equals(patientId)) && token != null && !"".equals(token)) {
             WechatUser wechatUser = redisSerive.getWechatUser(token);
             prostaticMedicalExamination.setPatientId(wechatUser.getPatientId());
@@ -41,6 +43,18 @@ public class MedicalExaminationController extends BaseController {
         } else {
             return emptyParamResponse();
         }
+
+        Date cds = DateUtils.stringToDate(DateUtils.getCurrentDate());
+
+        prostaticMedicalExamination.setCreateTime(cds);
+//        prostaticMedicalExamination.setPatientId(patientId);
+
+        ProstaticMedicalExamination checkProstaticMedicalExamination = prostaticMedicalExaminationService.selectByCreateTimeAndPatientId(prostaticMedicalExamination);
+
+        if (checkProstaticMedicalExamination != null) {
+            return insertRepeatResponse("今日已添加过化验单解读");
+        }
+
         int i = 0;
         List<Integer> bloodRoutineList = new LinkedList<>();
         List<Integer> digitalRectalList = new LinkedList<>();
@@ -125,6 +139,54 @@ public class MedicalExaminationController extends BaseController {
             return queryEmptyResponse();
         }
 
+        LinkedHashMap<String, LinkedHashMap<String, List<ProstaticMedicalExamination>>> mp = prostaticMedicalExaminationOrder(prostaticMedicalExaminationList);
+
+        return querySuccessResponse(mp);
+    }
+
+
+    /**
+     * 根据患者 和日期 查询 化验单解读结果
+     *
+     * @param patientId
+     * @return
+     */
+    @RequestMapping(value = "getByPatientAndDate")
+    public LinkedHashMap getByPatientAndData(String patientId, String createDate) {
+        ProstaticMedicalExamination prostaticMedicalExamination = new ProstaticMedicalExamination();
+
+        if (patientId == null || "".equals(patientId) || createDate == null||"".equals(createDate)) {
+            return emptyParamResponse();
+        }
+        prostaticMedicalExamination.setPatientId(patientId);
+        prostaticMedicalExamination.setCreateTime( DateUtils.stringToDate(createDate));
+
+        prostaticMedicalExamination = prostaticMedicalExaminationService.selectByPatientAndData(prostaticMedicalExamination);
+
+        if (prostaticMedicalExamination == null) {
+            return queryEmptyResponse();
+        }
+        return querySuccessResponse(prostaticMedicalExamination);
+    }
+
+
+
+
+
+
+
+
+
+
+
+
+    /**
+     * 化验单解读结果集 按日期排序
+     *
+     * @param prostaticMedicalExaminationList
+     * @return
+     */
+    private static LinkedHashMap prostaticMedicalExaminationOrder(List<ProstaticMedicalExamination> prostaticMedicalExaminationList) {
         LinkedHashMap<String, LinkedHashMap<String, List<ProstaticMedicalExamination>>> mp = new LinkedHashMap<>();
 
         for (ProstaticMedicalExamination medicalExamination : prostaticMedicalExaminationList) {
@@ -150,7 +212,6 @@ public class MedicalExaminationController extends BaseController {
             }
 
         }
-//        return querySuccessResponse(JSONObject.toJSONString(mp, SerializerFeature.SortField));
-        return querySuccessResponse(mp);
+        return mp;
     }
 }

@@ -1,5 +1,6 @@
 package com.prostate.assessmen.entity;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonInclude;
 
 import java.util.Date;
@@ -22,6 +23,7 @@ public class PatientIpssScore {
 
     private String createDoctor;
 
+    @JsonFormat(pattern = "yyyy-MM-dd",timezone = "GMT+8")
     private Date createTime;
 
     private String updateDoctor;
