@@ -5,4 +5,5 @@ import com.prostate.assessmen.mapper.BaseWriteMapper;
 
 public interface CheckupRecordWriteMapper extends BaseWriteMapper<CheckupRecord> {
 
+    int deleteByImgPath(String imgPath);
 }

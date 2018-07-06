@@ -1,6 +1,7 @@
 package com.prostate.assessmen.controller;
 
 import com.prostate.assessmen.entity.*;
+import com.prostate.assessmen.feignService.FileServer;
 import com.prostate.assessmen.service.*;
 import com.prostate.assessmen.util.DateUtils;
 import lombok.extern.slf4j.Slf4j;
@@ -22,17 +23,20 @@ import java.util.Map;
 public class PictureRecordController extends BaseController {
 
 
-    private final CheckupRecordService checkupRecordService;
-    private final DiseaseRecordService diseaseRecordService;
-    private final HospitalRecordService hospitalRecordService;
-    private final InspectionRecordService inspectionRecordService;
+    private CheckupRecordService checkupRecordService;
+    private DiseaseRecordService diseaseRecordService;
+    private HospitalRecordService hospitalRecordService;
+    private InspectionRecordService inspectionRecordService;
+
+    private FileServer fileServer;
 
     @Autowired
-    public PictureRecordController( CheckupRecordService checkupRecordService, DiseaseRecordService diseaseRecordService, HospitalRecordService hospitalRecordService, InspectionRecordService inspectionRecordService) {
+    public PictureRecordController( CheckupRecordService checkupRecordService, DiseaseRecordService diseaseRecordService, HospitalRecordService hospitalRecordService, InspectionRecordService inspectionRecordService,FileServer fileServer) {
         this.checkupRecordService = checkupRecordService;
         this.diseaseRecordService = diseaseRecordService;
         this.hospitalRecordService = hospitalRecordService;
         this.inspectionRecordService = inspectionRecordService;
+        this.fileServer = fileServer;
     }
 
 
@@ -89,14 +93,15 @@ public class PictureRecordController extends BaseController {
      * @return
      */
     @PostMapping(value = "deleteCheckupRecord")
-    public Map deleteCheckupRecord(String id) {
+    public Map deleteCheckupRecord(String imgPath) {
 
-        if (id == null || "".equals(id)) {
+        if (imgPath == null || "".equals(imgPath)) {
             return emptyParamResponse();
         }
 
-        int i = checkupRecordService.deleteById(id);
+        int i = checkupRecordService.deleteByImgPath(imgPath);
         if (i >= 0) {
+            fileServer.delete(imgPath);
             return deleteSuccseeResponse();
         }
         return deleteFailedResponse("删除失败:");
@@ -153,17 +158,16 @@ public class PictureRecordController extends BaseController {
     /**
      * 删除 病程记录
      *
-     * @param id
-     * @return
      */
     @PostMapping(value = "deleteDiseaseRecord")
-    public Map deleteDiseaseRecord(String id) {
+    public Map deleteDiseaseRecord(String imgPath) {
 
-        if (id == null || "".equals(id)) {
+        if (imgPath == null || "".equals(imgPath)) {
             return emptyParamResponse();
         }
-        int i = diseaseRecordService.deleteById(id);
+        int i = diseaseRecordService.deleteByImgPath(imgPath);
         if (i >= 0) {
+            fileServer.delete(imgPath);
             return deleteSuccseeResponse();
         }
         return deleteFailedResponse("删除失败:");
@@ -218,17 +222,16 @@ public class PictureRecordController extends BaseController {
     /**
      * 删除住院记录
      *
-     * @param id
-     * @return
      */
     @PostMapping(value = "deleteHospitalRecord")
-    public Map deleteHospitalRecord(String id) {
+    public Map deleteHospitalRecord(String imgPath) {
 
-        if (id == null || "".equals(id)) {
+        if (imgPath == null || "".equals(imgPath)) {
             return emptyParamResponse();
         }
-        int i = hospitalRecordService.deleteById(id);
+        int i = hospitalRecordService.deleteByImgPath(imgPath);
         if (i >= 0) {
+            fileServer.delete(imgPath);
             return deleteSuccseeResponse();
         }
         return deleteFailedResponse("删除失败:");
@@ -284,17 +287,16 @@ public class PictureRecordController extends BaseController {
     /**
      * 删除检验记录
      *
-     * @param id
-     * @return
      */
     @PostMapping(value = "deleteInspectionRecord")
-    public Map deleteInspectionRecord(String id) {
+    public Map deleteInspectionRecord(String imgPath) {
 
-        if (id == null || "".equals(id)) {
+        if (imgPath == null || "".equals(imgPath)) {
             return emptyParamResponse();
         }
-        int i = inspectionRecordService.deleteById(id);
+        int i = inspectionRecordService.deleteByImgPath(imgPath);
         if (i >= 0) {
+            fileServer.delete(imgPath);
             return deleteSuccseeResponse();
         }
         return deleteFailedResponse("删除失败:");

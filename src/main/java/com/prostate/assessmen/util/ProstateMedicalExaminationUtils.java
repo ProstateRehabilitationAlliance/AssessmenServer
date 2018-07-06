@@ -80,24 +80,30 @@ public class ProstateMedicalExaminationUtils {
 
 
         //前列腺按摩液 任意一项结果异常 只要第3题选择B或第4题选择A，不管其它检查结果如何选
-        if (expressedProstaticSecretionList.indexOf(1) >= 0) {
+        if (expressedProstaticSecretionList != null && expressedProstaticSecretionList.indexOf(1) >= 0) {
             prostaticMedicalExamination.setMedicalExaminationRemark(prostatitisRemarks[0]);
         }
-        //血常规 或 尿常规 任何有一个是非正常选项 B超结果也有非正常选项 若第1、2题有任何一个问题是非正常选项（第1题选择B或第2题选择B）
-        if ((bloodRoutineList.indexOf(1) >= 0 || urineRoutineList.indexOf(1) >= 0) && ultrasonographyBList.indexOf(1) >= 0) {
-            prostaticMedicalExamination.setMedicalExaminationRemark(prostatitisRemarks[1]);
-        }
-        //血常规 或 尿常规 任何有一个是非正常选项 1和2题任何有一个是非正常选项
-        if (bloodRoutineList.indexOf(1) >= 0 || urineRoutineList.indexOf(1) >= 0) {
-            prostaticMedicalExamination.setMedicalExaminationRemark(prostatitisRemarks[2]);
-        }
-        //血常规 和 尿常规 正常 B超结果异常 若1、2问题都正常，B超结果异常
-        if ((bloodRoutineList.indexOf(1) == -1 || urineRoutineList.indexOf(1) == -1) && ultrasonographyBList.indexOf(1) >= 0) {
-            prostaticMedicalExamination.setMedicalExaminationRemark(prostatitisRemarks[3]);
-        }
-        //指标全部正常范围
-        if (bloodRoutineList.indexOf(1) < 0 && expressedProstaticSecretionList.indexOf(1) < 0 && ultrasonographyBList.indexOf(1) < 0 && urineRoutineList.indexOf(1) < 0) {
-            prostaticMedicalExamination.setMedicalExaminationRemark(prostatitisRemarks[4]);
+        if (bloodRoutineList != null && urineRoutineList != null) {
+            //血常规 或 尿常规 任何有一个是非正常选项 1和2题任何有一个是非正常选项
+            if (bloodRoutineList.indexOf(1) >= 0 || urineRoutineList.indexOf(1) >= 0) {
+                prostaticMedicalExamination.setMedicalExaminationRemark(prostatitisRemarks[2]);
+            }
+            if (ultrasonographyBList != null) {
+                //血常规 或 尿常规 任何有一个是非正常选项 B超结果也有非正常选项 若第1、2题有任何一个问题是非正常选项（第1题选择B或第2题选择B）
+                if ((bloodRoutineList.indexOf(1) >= 0 || urineRoutineList.indexOf(1) >= 0) && ultrasonographyBList.indexOf(1) >= 0) {
+                    prostaticMedicalExamination.setMedicalExaminationRemark(prostatitisRemarks[1]);
+                }
+                //血常规 和 尿常规 正常 B超结果异常 若1、2问题都正常，B超结果异常
+                if ((bloodRoutineList.indexOf(1) == -1 || urineRoutineList.indexOf(1) == -1) && ultrasonographyBList.indexOf(1) >= 0) {
+                    prostaticMedicalExamination.setMedicalExaminationRemark(prostatitisRemarks[3]);
+                }
+                if (expressedProstaticSecretionList != null) {
+                    //指标全部正常范围
+                    if (bloodRoutineList.indexOf(1) < 0 && expressedProstaticSecretionList.indexOf(1) < 0 && ultrasonographyBList.indexOf(1) < 0 && urineRoutineList.indexOf(1) < 0) {
+                        prostaticMedicalExamination.setMedicalExaminationRemark(prostatitisRemarks[4]);
+                    }
+                }
+            }
         }
 
     }

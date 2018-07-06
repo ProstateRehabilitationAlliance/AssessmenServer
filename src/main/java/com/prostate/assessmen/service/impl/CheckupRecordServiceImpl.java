@@ -41,4 +41,9 @@ public class CheckupRecordServiceImpl implements CheckupRecordService {
     public List<CheckupRecord> selectByParams(CheckupRecord checkupRecord) {
         return checkupRecordReadMapper.selectByParams(checkupRecord);
     }
+
+    @Override
+    public int deleteByImgPath(String imgPath) {
+        return checkupRecordWriteMapper.deleteByImgPath(imgPath);
+    }
 }

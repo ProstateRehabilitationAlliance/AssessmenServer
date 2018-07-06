@@ -1,6 +1,8 @@
 package com.prostate.assessmen.controller;
 
+import com.prostate.assessmen.cache.redis.RedisSerive;
 import com.prostate.assessmen.entity.PatientAssessment;
+import com.prostate.assessmen.entity.WechatUser;
 import com.prostate.assessmen.service.PatientAssessmentService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,7 +22,13 @@ public class PatientAssessmentController extends BaseController {
     @Autowired
     private PatientAssessmentService assessmentService;
 
-
+    @Autowired
+    private RedisSerive redisSerive;
+    /**
+     * 根据患者ID查询 所有评估结果列表
+     * @param patientId
+     * @return
+     */
     @PostMapping(value = "findByPatientId")
     public Map getPatientAssessmentList(String patientId){
         log.info("############根据患者查询 所有评估结果列表############");
@@ -41,7 +49,6 @@ public class PatientAssessmentController extends BaseController {
 
     @PostMapping(value = "getById")
     public Map getPatientAssessment(String id){
-         log.info("#########前列腺症状评分（IPSS）结果添加############生活质量指数评分（QOL)结果############");
          //参数校验
          if(id==null||"".equals(id)){
              return emptyParamResponse();
@@ -58,16 +65,12 @@ public class PatientAssessmentController extends BaseController {
 
     /********************************************************/
     @PostMapping(value = "findByWechatToken")
-    public Map findByWechatToken(String patientId,String token){
+    public Map findByWechatToken(String token){
         log.info("############微信端根据患者查询 所有评估结果列表############");
-        //参数校验
-        patientId = "8871fd0d532c11e8967f00163e08d49b";
-        if(patientId==null||"".equals(patientId)){
-            return emptyParamResponse();
-        }
+        WechatUser wechatUser = redisSerive.getWechatUser(token);
 
         PatientAssessment patientAssessment =new PatientAssessment();
-        patientAssessment.setId(patientId);
+        patientAssessment.setId(wechatUser.getId());
 
         List<PatientAssessment> patientAssessmentList =  assessmentService.selectByPatientId(patientAssessment);
         if(patientAssessmentList!=null&&patientAssessmentList.size()>0){

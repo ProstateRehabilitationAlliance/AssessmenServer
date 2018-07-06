@@ -65,31 +65,31 @@ public class MedicalExaminationController extends BaseController {
         List<Integer> urineRoutineList = new LinkedList<>();
 
         //客户端答案解读
-        if (prostaticMedicalExamination.getBloodRoutineAnswer() != null || !"".equals(prostaticMedicalExamination.getBloodRoutineAnswer())) {
+        if (prostaticMedicalExamination.getBloodRoutineAnswer() != null && !"".equals(prostaticMedicalExamination.getBloodRoutineAnswer())) {
             bloodRoutineList = BloodRoutineUtils.getBloodRoutineScores(prostaticMedicalExamination.getBloodRoutineAnswer());
             i++;
         }
-        if (prostaticMedicalExamination.getDigitalRectalAnswer() != null || !"".equals(prostaticMedicalExamination.getDigitalRectalAnswer())) {
+        if (prostaticMedicalExamination.getDigitalRectalAnswer() != null && !"".equals(prostaticMedicalExamination.getDigitalRectalAnswer())) {
             digitalRectalList = DigitalRectalUtils.getDigitalRectalList(prostaticMedicalExamination.getDigitalRectalAnswer());
             i++;
         }
-        if (prostaticMedicalExamination.getExpressedProstaticSecretionAnswer() != null || !"".equals(prostaticMedicalExamination.getExpressedProstaticSecretionAnswer())) {
+        if (prostaticMedicalExamination.getExpressedProstaticSecretionAnswer() != null && !"".equals(prostaticMedicalExamination.getExpressedProstaticSecretionAnswer())) {
             expressedProstaticSecretionList = ExpressedProstaticSecretionUtils.getExpressedProstaticSecretionList(prostaticMedicalExamination.getExpressedProstaticSecretionAnswer());
             i++;
         }
-        if (prostaticMedicalExamination.getSpecificAntigenAnswer() != null || !"".equals(prostaticMedicalExamination.getSpecificAntigenAnswer())) {
+        if (prostaticMedicalExamination.getSpecificAntigenAnswer() != null && !"".equals(prostaticMedicalExamination.getSpecificAntigenAnswer())) {
             specificAntigenList = SpecificAntigenUtils.getSpecificAntigenList(prostaticMedicalExamination.getSpecificAntigenAnswer());
             i++;
         }
-        if (prostaticMedicalExamination.getUltrasonographyBAnswer() != null || !"".equals(prostaticMedicalExamination.getUltrasonographyBAnswer())) {
+        if (prostaticMedicalExamination.getUltrasonographyBAnswer() != null && !"".equals(prostaticMedicalExamination.getUltrasonographyBAnswer())) {
             ultrasonographyBList = UltrasonographyBUtils.getUltrasonographyBList(prostaticMedicalExamination.getUltrasonographyBAnswer());
             i++;
         }
-        if (prostaticMedicalExamination.getUrineFlowRateAnswer() != null || !"".equals(prostaticMedicalExamination.getUrineFlowRateAnswer())) {
+        if (prostaticMedicalExamination.getUrineFlowRateAnswer() != null && !"".equals(prostaticMedicalExamination.getUrineFlowRateAnswer())) {
             urineFlowRateList = UrineFlowRateUtils.getUrineFlowRateList(prostaticMedicalExamination.getUrineFlowRateAnswer());
             i++;
         }
-        if (prostaticMedicalExamination.getUrineRoutineAnswer() != null || !"".equals(prostaticMedicalExamination.getUrineRoutineAnswer())) {
+        if (prostaticMedicalExamination.getUrineRoutineAnswer() != null && !"".equals(prostaticMedicalExamination.getUrineRoutineAnswer())) {
             urineRoutineList = UrineRoutineUtils.getUrineRoutineList(prostaticMedicalExamination.getUrineRoutineAnswer());
             i++;
         }
@@ -124,6 +124,7 @@ public class MedicalExaminationController extends BaseController {
      */
     @RequestMapping(value = "getByPatientId")
     public LinkedHashMap getByPatientId(String patientId, String token) {
+
         ProstaticMedicalExamination prostaticMedicalExamination = new ProstaticMedicalExamination();
         if ((patientId == null || "".equals(patientId)) && token != null && !"".equals(token)) {
             WechatUser wechatUser = redisSerive.getWechatUser(token);

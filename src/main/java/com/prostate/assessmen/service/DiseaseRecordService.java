@@ -5,4 +5,5 @@ import org.springframework.stereotype.Service;
 
 @Service
 public interface DiseaseRecordService extends BaseService<DiseaseRecord>{
+    int deleteByImgPath(String imgPath);
 }

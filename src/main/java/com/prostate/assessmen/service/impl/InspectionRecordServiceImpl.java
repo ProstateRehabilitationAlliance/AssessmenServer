@@ -42,4 +42,9 @@ public class InspectionRecordServiceImpl implements InspectionRecordService {
     public List<InspectionRecord> selectByParams(InspectionRecord inspectionRecord) {
         return inspectionRecordReadMapper.selectByParams(inspectionRecord);
     }
+
+    @Override
+    public int deleteByImgPath(String imgPath) {
+        return inspectionRecordWriteMapper.deleteByImgPath(imgPath);
+    }
 }

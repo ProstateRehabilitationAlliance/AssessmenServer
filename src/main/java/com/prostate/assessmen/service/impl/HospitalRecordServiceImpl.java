@@ -40,4 +40,9 @@ public class HospitalRecordServiceImpl implements HospitalRecordService {
     public List<HospitalRecord> selectByParams(HospitalRecord hospitalRecord) {
         return hospitalRecordReadMapper.selectByParams(hospitalRecord);
     }
+
+    @Override
+    public int deleteByImgPath(String imgPath) {
+        return hospitalRecordWriteMapper.deleteByImgPath(imgPath);
+    }
 }

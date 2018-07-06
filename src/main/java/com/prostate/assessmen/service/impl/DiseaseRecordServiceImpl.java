@@ -41,4 +41,9 @@ public class DiseaseRecordServiceImpl implements DiseaseRecordService {
     public List<DiseaseRecord> selectByParams(DiseaseRecord diseaseRecord) {
         return diseaseRecordReadMapper.selectByParams(diseaseRecord);
     }
+
+    @Override
+    public int deleteByImgPath(String imgPath) {
+        return diseaseRecordWriteMapper.deleteByImgPath(imgPath);
+    }
 }
