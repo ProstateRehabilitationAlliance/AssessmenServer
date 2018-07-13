@@ -9,4 +9,6 @@ public interface PatientAssessmentReadMapper extends BaseReadMapper<PatientAsses
     PatientAssessment selectById(PatientAssessment patientAssessment);
 
     List<PatientAssessment> selectByPatientId(PatientAssessment patientAssessment);
+
+    PatientAssessment selectLastByPatientId(PatientAssessment patientAssessment);
 }

@@ -202,7 +202,7 @@
             </if>
         </trim>
     </insert>
-    <update id="updateByPrimaryKeySelective" parameterType="com.prostate.assessmen.entity.ProstaticMedicalExamination">
+    <update id="updateSelective" parameterType="com.prostate.assessmen.entity.ProstaticMedicalExamination">
         update pra_prostatic_medical_examination
         <set>
             <if test="patientId != null">

@@ -6,10 +6,12 @@ import com.prostate.assessmen.entity.WechatUser;
 import com.prostate.assessmen.service.ProstaticMedicalExaminationService;
 import com.prostate.assessmen.util.*;
 import lombok.extern.slf4j.Slf4j;
+import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import javax.validation.Valid;
 import java.util.*;
 
 /**
@@ -31,18 +33,21 @@ public class MedicalExaminationController extends BaseController {
      * @return
      */
     @RequestMapping(value = "add")
-    public Map add(ProstaticMedicalExamination prostaticMedicalExamination, String patientAge, String token) {
+    public Map add(@Valid ProstaticMedicalExamination prostaticMedicalExamination, String patientAge, String token, String prostaticMedicalExaminationId) {
 
         String patientId = prostaticMedicalExamination.getPatientId();
         //参数校验
         if ((patientId == null || "".equals(patientId)) && token != null && !"".equals(token)) {
             WechatUser wechatUser = redisSerive.getWechatUser(token);
-            prostaticMedicalExamination.setPatientId(wechatUser.getPatientId());
+            prostaticMedicalExamination.setPatientId(wechatUser.getId());
         } else if (patientId != null && !"".equals(patientId) && token != null && !"".equals(token)) {
             prostaticMedicalExamination.setPatientId(patientId);
         } else {
             return emptyParamResponse();
         }
+
+        //记录ID校验
+        boolean t = StringUtils.isNotBlank(prostaticMedicalExaminationId);
 
         Date cds = DateUtils.stringToDate(DateUtils.getCurrentDate());
 
@@ -51,7 +56,7 @@ public class MedicalExaminationController extends BaseController {
 
         ProstaticMedicalExamination checkProstaticMedicalExamination = prostaticMedicalExaminationService.selectByCreateTimeAndPatientId(prostaticMedicalExamination);
 
-        if (checkProstaticMedicalExamination != null) {
+        if (checkProstaticMedicalExamination != null && !t) {
             return insertRepeatResponse("今日已添加过化验单解读");
         }
 
@@ -107,16 +112,20 @@ public class MedicalExaminationController extends BaseController {
 
         //根据年龄计算化验单解读提示
         if (age < 50) {
+            //计算前列腺炎症风险
             ProstateMedicalExaminationUtils.setProstatitis(bloodRoutineList, expressedProstaticSecretionList, ultrasonographyBList, urineRoutineList, prostaticMedicalExamination);
-            prostaticMedicalExaminationService.insertSelective(prostaticMedicalExamination);
-            return insertSuccseeResponse(prostaticMedicalExamination);
         } else if (age >= 50) {
-            //计算前列腺增生风险 添加前列腺增生风险提示
+            //计算前列腺增生风险
             ProstateMedicalExaminationUtils.setBPHRemark(bloodRoutineList, digitalRectalList, expressedProstaticSecretionList, specificAntigenList, ultrasonographyBList, urineFlowRateList, urineRoutineList, prostaticMedicalExamination);
+        }
+        if (t) {
+            prostaticMedicalExamination.setId(prostaticMedicalExaminationId);
+            prostaticMedicalExaminationService.updateSelective(prostaticMedicalExamination);
+            return updateSuccseeResponse(prostaticMedicalExamination);
+        } else {
             prostaticMedicalExaminationService.insertSelective(prostaticMedicalExamination);
             return insertSuccseeResponse(prostaticMedicalExamination);
         }
-        return insertFailedResponse();
     }
 
     /**
@@ -128,7 +137,7 @@ public class MedicalExaminationController extends BaseController {
         ProstaticMedicalExamination prostaticMedicalExamination = new ProstaticMedicalExamination();
         if ((patientId == null || "".equals(patientId)) && token != null && !"".equals(token)) {
             WechatUser wechatUser = redisSerive.getWechatUser(token);
-            prostaticMedicalExamination.setPatientId(wechatUser.getPatientId());
+            prostaticMedicalExamination.setPatientId(wechatUser.getId());
         } else if (patientId != null && !"".equals(patientId) && token != null && !"".equals(token)) {
             prostaticMedicalExamination.setPatientId(patientId);
         } else {
@@ -156,11 +165,14 @@ public class MedicalExaminationController extends BaseController {
     public LinkedHashMap getByPatientAndData(String patientId, String createDate) {
         ProstaticMedicalExamination prostaticMedicalExamination = new ProstaticMedicalExamination();
 
-        if (patientId == null || "".equals(patientId) || createDate == null||"".equals(createDate)) {
+        if (StringUtils.isBlank(patientId)) {
             return emptyParamResponse();
         }
+        if (StringUtils.isBlank(createDate)) {
+            createDate = DateUtils.getCurrentDate();
+        }
         prostaticMedicalExamination.setPatientId(patientId);
-        prostaticMedicalExamination.setCreateTime( DateUtils.stringToDate(createDate));
+        prostaticMedicalExamination.setCreateTime(DateUtils.stringToDate(createDate));
 
         prostaticMedicalExamination = prostaticMedicalExaminationService.selectByPatientAndData(prostaticMedicalExamination);
 
@@ -171,14 +183,18 @@ public class MedicalExaminationController extends BaseController {
     }
 
 
-
-
-
-
-
-
-
-
+    /**
+     *  @version：指定版本信息。
+     *  @since: 指定最早出现在哪个版本
+     *  @author：MaxCoder
+     *  @see：用于指定参考的内容。
+     *  @docroot：表示产生文档的根路径。
+     *  @deprecated：不推荐使用的方法。
+     *  @param：方法的参数类型。
+     *  @return：方法的返回类型。
+     *  @exception：抛出的异常。
+     *  @throws：抛出的异常，和exception同义
+     */
 
 
     /**

@@ -78,4 +78,28 @@ public class PatientAssessmentController extends BaseController {
         }
         return queryEmptyResponse();
     }
+
+
+    /**
+     * 查询最近的 一条评估记录
+     * @param patientId
+     * @return
+     */
+    @PostMapping(value = "getLastByPatientId")
+    public Map getLastByPatientId(String patientId){
+        log.info("############根据患者查询 查询最近的 一条评估记录############");
+        //参数校验
+        if(patientId==null||"".equals(patientId)){
+            return emptyParamResponse();
+        }
+
+        PatientAssessment patientAssessment =new PatientAssessment();
+        patientAssessment.setId(patientId);
+
+        patientAssessment = assessmentService.selectLastByPatientId(patientAssessment);
+        if(patientAssessment!=null){
+            return querySuccessResponse(patientAssessment);
+        }
+        return queryEmptyResponse();
+    }
 }

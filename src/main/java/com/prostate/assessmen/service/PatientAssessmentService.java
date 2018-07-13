@@ -8,4 +8,6 @@ public interface PatientAssessmentService {
     PatientAssessment selectById(PatientAssessment patientAssessment);
 
     List<PatientAssessment> selectByPatientId(PatientAssessment patientAssessment);
+
+    PatientAssessment selectLastByPatientId(PatientAssessment patientAssessment);
 }

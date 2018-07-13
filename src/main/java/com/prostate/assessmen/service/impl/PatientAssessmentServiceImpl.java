@@ -27,4 +27,9 @@ public class PatientAssessmentServiceImpl implements PatientAssessmentService {
     public List<PatientAssessment> selectByPatientId(PatientAssessment patientAssessment) {
         return assessmentReadMapper.selectByPatientId(patientAssessment);
     }
+
+    @Override
+    public PatientAssessment selectLastByPatientId(PatientAssessment patientAssessment) {
+        return assessmentReadMapper.selectLastByPatientId(patientAssessment);
+    }
 }

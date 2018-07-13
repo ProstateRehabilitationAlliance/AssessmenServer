@@ -2,11 +2,16 @@ package com.prostate.assessmen.entity;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonInclude;
+import com.prostate.assessmen.beans.MedicalExaminationParam;
 
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Null;
 import java.util.Date;
 
 @JsonInclude(JsonInclude.Include.NON_NULL)
 public class ProstaticMedicalExamination {
+
+    @Null
     private String id;
 
     private String patientId;
@@ -56,19 +61,27 @@ public class ProstaticMedicalExamination {
 
     private String delFlag;
 
-    private String urineRoutineInspectTime;
+    @JsonFormat(pattern = "yyyy-MM-dd",timezone = "GMT+8" )
+    private Date urineRoutineInspectTime;
 
-    private String urineFlowRateInspectTime;
+    @JsonFormat(pattern = "yyyy-MM-dd",timezone = "GMT+8" )
+    private Date urineFlowRateInspectTime;
 
-    private String ultrasonographyBInspectTime;
+    @JsonFormat(pattern = "yyyy-MM-dd",timezone = "GMT+8" )
+    private Date ultrasonographyBInspectTime;
 
-    private String digitalRectalInspectTime;
+    @JsonFormat(pattern = "yyyy-MM-dd",timezone = "GMT+8" )
+    private Date digitalRectalInspectTime;
 
-    private String expressedProstaticSecretionInspectTime;
+    @JsonFormat(pattern = "yyyy-MM-dd",timezone = "GMT+8" )
+    private Date expressedProstaticSecretionInspectTime;
 
-    private String specificAntigenInspectTime;
+    @JsonFormat(pattern = "yyyy-MM-dd",timezone = "GMT+8" )
+    private Date specificAntigenInspectTime;
 
-    private String bloodRoutineInspectTime;
+    @JsonFormat(pattern = "yyyy-MM-dd",timezone = "GMT+8" )
+    private Date bloodRoutineInspectTime;
+
 
     public String getId() {
         return id;
@@ -262,59 +275,59 @@ public class ProstaticMedicalExamination {
         this.delFlag = delFlag == null ? null : delFlag.trim();
     }
 
-    public String getUrineRoutineInspectTime() {
+    public Date getUrineRoutineInspectTime() {
         return urineRoutineInspectTime;
     }
 
-    public void setUrineRoutineInspectTime(String urineRoutineInspectTime) {
+    public void setUrineRoutineInspectTime(Date urineRoutineInspectTime) {
         this.urineRoutineInspectTime = urineRoutineInspectTime;
     }
 
-    public String getUrineFlowRateInspectTime() {
+    public Date getUrineFlowRateInspectTime() {
         return urineFlowRateInspectTime;
     }
 
-    public void setUrineFlowRateInspectTime(String urineFlowRateInspectTime) {
+    public void setUrineFlowRateInspectTime(Date urineFlowRateInspectTime) {
         this.urineFlowRateInspectTime = urineFlowRateInspectTime;
     }
 
-    public String getUltrasonographyBInspectTime() {
+    public Date getUltrasonographyBInspectTime() {
         return ultrasonographyBInspectTime;
     }
 
-    public void setUltrasonographyBInspectTime(String ultrasonographyBInspectTime) {
+    public void setUltrasonographyBInspectTime(Date ultrasonographyBInspectTime) {
         this.ultrasonographyBInspectTime = ultrasonographyBInspectTime;
     }
 
-    public String getDigitalRectalInspectTime() {
+    public Date getDigitalRectalInspectTime() {
         return digitalRectalInspectTime;
     }
 
-    public void setDigitalRectalInspectTime(String digitalRectalInspectTime) {
+    public void setDigitalRectalInspectTime(Date digitalRectalInspectTime) {
         this.digitalRectalInspectTime = digitalRectalInspectTime;
     }
 
-    public String getExpressedProstaticSecretionInspectTime() {
+    public Date getExpressedProstaticSecretionInspectTime() {
         return expressedProstaticSecretionInspectTime;
     }
 
-    public void setExpressedProstaticSecretionInspectTime(String expressedProstaticSecretionInspectTime) {
+    public void setExpressedProstaticSecretionInspectTime(Date expressedProstaticSecretionInspectTime) {
         this.expressedProstaticSecretionInspectTime = expressedProstaticSecretionInspectTime;
     }
 
-    public String getSpecificAntigenInspectTime() {
+    public Date getSpecificAntigenInspectTime() {
         return specificAntigenInspectTime;
     }
 
-    public void setSpecificAntigenInspectTime(String specificAntigenInspectTime) {
+    public void setSpecificAntigenInspectTime(Date specificAntigenInspectTime) {
         this.specificAntigenInspectTime = specificAntigenInspectTime;
     }
 
-    public String getBloodRoutineInspectTime() {
+    public Date getBloodRoutineInspectTime() {
         return bloodRoutineInspectTime;
     }
 
-    public void setBloodRoutineInspectTime(String bloodRoutineInspectTime) {
+    public void setBloodRoutineInspectTime(Date bloodRoutineInspectTime) {
         this.bloodRoutineInspectTime = bloodRoutineInspectTime;
     }
 
